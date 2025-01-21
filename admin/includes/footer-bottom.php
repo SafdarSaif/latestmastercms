@@ -326,6 +326,29 @@
 </script>
 
 
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const menuLinks = document.querySelectorAll(".menu-link");
+
+        menuLinks.forEach(link => {
+            link.addEventListener("click", function () {
+                menuLinks.forEach(item => item.parentElement.classList.remove("active"));
+
+                this.parentElement.classList.add("active");
+            });
+        });
+
+        const currentUrl = window.location.pathname;
+        menuLinks.forEach(link => {
+            if (link.getAttribute("href") === currentUrl) {
+                link.parentElement.classList.add("active");
+            }
+        });
+    });
+</script> -->
+
+
+
 </body>
 
 
