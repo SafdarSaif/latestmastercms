@@ -1,6 +1,6 @@
 <?php require '../../includes/db-config.php';
 require '../../includes/helper.php'; ?>
-<style>
+<!-- <style>
   .form-check-input {
     accent-color: #007bff;
     width: 20px;
@@ -12,7 +12,7 @@ require '../../includes/helper.php'; ?>
     font-weight: 500;
     font-size: 14px;
   }
-</style>
+</style> -->
 
 
 <div class="modal-header">
@@ -27,49 +27,49 @@ require '../../includes/helper.php'; ?>
 
   <form id="form-add-setting_heading" action="/admin/app/setting_heading/store" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
     <div class="row">
-      
+
       <!-- Name Field -->
       <div class="col-12 mb-3">
         <label class="form-label fw-semibold" for="name">Name <span class="text-danger">*</span></label>
-        <input type="text" id="name" name="name" class="form-control border-primary shadow-sm" placeholder="Enter a setting_heading Name" required />
+        <input type="text" id="name" name="name" class="form-control border-primary " placeholder="Enter a setting_heading Name" required />
         <div class="invalid-feedback">Setting heading name is required.</div>
       </div>
 
       <!-- Content Field -->
       <div class="col-12 mb-3">
         <label class="form-label fw-semibold" for="editor">Content <span class="text-danger">*</span></label>
-        <textarea id="editor" name="editor" class="ckeditor form-control border-primary shadow-sm" rows="10" required></textarea>
+        <textarea id="editor" name="editor" class="ckeditor form-control border-primary " rows="10" required></textarea>
         <span id="content-error" class="text-danger d-block mt-1" style="font-size: 12px;"></span>
       </div>
 
       <!-- Meta Title Field -->
       <div class="col-md-6 mb-3">
         <label class="form-label fw-semibold" for="meta_title">Meta Title</label>
-        <input type="text" id="meta_title" name="meta_title" class="form-control border-primary shadow-sm" placeholder="Enter meta title" />
+        <input type="text" id="meta_title" name="meta_title" class="form-control border-primary " placeholder="Enter meta title" />
       </div>
 
       <!-- Meta Key Field -->
       <div class="col-md-6 mb-3">
         <label class="form-label fw-semibold" for="meta_key">Meta Key</label>
-        <input type="text" id="meta_key" name="meta_key" class="form-control border-primary shadow-sm" placeholder="Enter meta key" />
+        <input type="text" id="meta_key" name="meta_key" class="form-control border-primary " placeholder="Enter meta key" />
       </div>
 
       <!-- Meta Description Field -->
       <div class="col-12 mb-3">
         <label class="form-label fw-semibold" for="meta_description">Meta Description</label>
-        <textarea id="meta_description" name="meta_description" class="form-control border-primary shadow-sm" rows="3" placeholder="Enter meta description"></textarea>
+        <textarea id="meta_description" name="meta_description" class="form-control border-primary " rows="3" placeholder="Enter meta description"></textarea>
       </div>
 
       <!-- Position Field -->
       <div class="col-md-12 mb-3">
         <label class="form-label fw-semibold" for="position">Order By <span class="text-danger">*</span></label>
-        <input type="number" id="position" name="position" class="form-control border-primary shadow-sm" placeholder="Enter position" min="0" required />
+        <input type="number" id="position" name="position" class="form-control border-primary " placeholder="Enter position" min="0" required />
       </div>
 
       <!-- Submit and Cancel Buttons -->
       <div class="col-12 text-center mt-3">
-        <button type="submit" class="btn btn-primary px-4 shadow-sm">Save</button>
-        <button type="reset" class="btn btn-secondary px-4 shadow-sm" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary px-4 ">Save</button>
+        <button type="reset" class="btn btn-secondary px-4 " data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </form>

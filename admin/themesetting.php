@@ -1,7 +1,13 @@
+
+<?php
+// header('Location: app/themesetting/create.php');
+// exit;
+?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/header-top.php');  ?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/header-bottom.php');  ?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/side-menu.php'); ?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/menu.php'); ?>
+
 <script type="module">
 	$(function() {
 		var dataTablethemesetting = $('#themesetting-table'),
@@ -10,7 +16,7 @@
 		if (dataTablethemesetting.length) {
 			dt_permission = dataTablethemesetting.DataTable({
 				ajax: {
-					'url': '/admin/app/themesetting/server.php',
+					'url': '/admin/app/themesetting/server',
 					'type': 'POST',
 					// 'dataSrc': function(json) {
 					// 	console.log('Data received:', json); 

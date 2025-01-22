@@ -19,7 +19,7 @@
 
 // $subdomain = "rudraeducation";
 
-$subdomain = "";    
+$subdomain = "";
 
 // Default database credentials.
 $hostname = "localhost";

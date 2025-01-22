@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-md"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="modal-md" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content" id="modal-md-content">
@@ -58,20 +58,20 @@
     //         window.location.href = url
     //     }
     // }
-    
 
-   function addbysession(url, modal,id) {
-     // alert(model);
-     
-     $.ajax({
-       url: '/admin/app/' + url + '/create?id='+id,
-       type: 'GET',
-       success: function(data) {
-        $('#' + modal + '-content').html(data);
-        $('#' + modal).modal('show');
-       }
-     })
-   }
+
+    function addbysession(url, modal, id) {
+        // alert(model);
+
+        $.ajax({
+            url: '/admin/app/' + url + '/create?id=' + id,
+            type: 'GET',
+            success: function(data) {
+                $('#' + modal + '-content').html(data);
+                $('#' + modal).modal('show');
+            }
+        })
+    }
 
     function edit(url, modal) {
         $(".modal").modal('hide');
@@ -86,16 +86,16 @@
     }
 
 
-   function editsetting(url, id, second_id, modal) {
-     $.ajax({
-       url: '/admin/app/' + url + '/edit?id=' + id + '&second_id=' + second_id,
-       type: 'GET',
-       success: function(data) {
-        $('#' + modal + '-content').html(data);
-        $('#' + modal).modal('show');
-       }
-     })
-   }
+    function editsetting(url, id, second_id, modal) {
+        $.ajax({
+            url: '/admin/app/' + url + '/edit?id=' + id + '&second_id=' + second_id,
+            type: 'GET',
+            success: function(data) {
+                $('#' + modal + '-content').html(data);
+                $('#' + modal).modal('show');
+            }
+        })
+    }
 
     // function updateActiveStatus(url, table) {
     //     $.ajax({
@@ -130,15 +130,15 @@
     // }
 
     function edit(url, id, modal) {
-    $.ajax({
-        url: '/admin/app/' + url + '/edit?id=' + id, 
-        type: 'GET',
-        success: function(data) {
-            $('#' + modal + '-content').html(data);
-            $('#' + modal).modal('show');
-        }
-    });
-}
+        $.ajax({
+            url: '/admin/app/' + url + '/edit?id=' + id,
+            type: 'GET',
+            success: function(data) {
+                $('#' + modal + '-content').html(data);
+                $('#' + modal).modal('show');
+            }
+        });
+    }
 
 
     // function updateActiveStatus(url, table) {
@@ -158,28 +158,28 @@
     //     })
     // }
     function updateActiveStatus(url, table, id, column = "Status") {
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: {
-            table: table,
-            id: id,
-            column: column
-        },
-        success: function(response) {
-            response = JSON.parse(response);
-            if (response.status === 200) {
-                toastr.success(response.message,'Success');
-            } else {
-                toastr.error(response.message);
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                table: table,
+                id: id,
+                column: column
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                if (response.status === 200) {
+                    toastr.success(response.message, 'Success');
+                } else {
+                    toastr.error(response.message);
+                }
+                $('#' + table).DataTable().ajax.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", xhr.responseText);
             }
-            $('#' + table).DataTable().ajax.reload();
-        },
-        error: function(xhr, status, error) {
-            console.error("Error:", xhr.responseText);
-        }
-    });
-}
+        });
+    }
 
 
 

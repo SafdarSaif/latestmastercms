@@ -68,8 +68,14 @@
         </li>
 
 
-        <li class="menu-item ">
+        <!-- <li class="menu-item ">
             <a href="/admin/themesetting" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Setting Heading">Theme Setting</div>
+            </a>
+        </li> -->
+        <li class="menu-item">
+            <a onclick="add('app/themesetting/create&edit', 'modal-lg')" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-users"></i>
                 <div data-i18n="Setting Heading">Theme Setting</div>
             </a>
