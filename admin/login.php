@@ -151,7 +151,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
               <div class="mb-6">
                 <label for="email" class="form-label">Email or Username</label>
-                <input type="text" class="form-control" id="email" name="username" placeholder="Enter your email or username" autofocus>
+                <input type="text" class="form-control" id="email" name="username" style="text-transform: uppercase" placeholder="Enter your email or username"  autofocus>
               </div>
               <div class="mb-6 form-password-toggle">
                 <label class="form-label" for="password">Password</label>

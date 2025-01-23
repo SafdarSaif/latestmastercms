@@ -74,7 +74,7 @@ require '../../includes/helper.php'; ?>
     <!-- Upload Field -->
     <div class="col-md-12 media-field" id="upload-field" style="display:none;">
       <label class="form-label fw-semibold" for="media_file">Photo <span class="text-danger">*</span></label>
-      <input type="file" name="media_file" id="media_file" class="form-control" accept="image/*" multiple>
+      <input type="file" name="media_file" id="media_file" class="form-control" accept="image/*,.pdf" multiple>
     </div>
 
     <!-- Content -->

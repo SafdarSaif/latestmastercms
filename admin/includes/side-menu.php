@@ -159,7 +159,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="./wings" class="menu-link">
-                        <div data-i18n="Wings ">Wings </div>
+                        <div data-i18n="Wings ">Wings  Data</div>
                     </a>
                 </li>
                 <li class="menu-item">

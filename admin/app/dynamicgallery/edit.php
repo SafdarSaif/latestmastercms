@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
         <input type="file" name="images" id="photo" class="form-control" onchange="fileValidation('photo')" accept="image/png, image/jpg, image/jpeg, image/svg, image/avif">
         <?php if (!empty($id) && !empty($galleryArr['image_link'])) { ?>
           <div class="mt-2">
-            <img src="/admin<?= $galleryArr['image_link'] ?>" alt="Gallery Image" height="50" class="border">
+            <img src="<?= $galleryArr['image_link'] ?>" alt="Gallery Image" height="50" class="border">
           </div>
         <?php } ?>
       </div>

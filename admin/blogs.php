@@ -10,7 +10,7 @@
 		if (dataTableblogs.length) {
 			dt_permission = dataTableblogs.DataTable({
 				ajax: {
-					'url': '/admin/app/blogs/server.php',
+					'url': '/admin/app/blogs/server',
 					'type': 'POST',
 					// 'dataSrc': function(json) {
 					// 	console.log('Data received:', json); 
@@ -81,7 +81,7 @@
 						targets: 3,
 						render: function(data, type, full, meta) {
 							if (full['Photo']) {
-								return '<img src="/admin/' + full['Photo'] + '" alt="Photo" width="70">';
+								return '<img src="' + full['Photo'] + '" alt="Photo" width="70">';
 							}
 							return '<span class="text-muted">No Image</span>';
 						}

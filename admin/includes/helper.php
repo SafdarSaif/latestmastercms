@@ -175,30 +175,21 @@ function getSpecializationFunc($conn)
 
 // $modeArr = array("0" => "Month", "1" => "Semester");
 $programArr = array("0" => "Part Time", "1" => "Full Time");
-$categoryArr =array("0"=>"Category 1", "1"=>"Category 2" ,"2"=>"Category 3","3"=>"Category 4");
+$categoryArr = array("0" => "Category 1", "1" => "Category 2", "2" => "Category 3", "3" => "Category 4");
 
 $last_qulifications_Arr = array("Last Qulifications" => "Last Qulifications", "Intermediate" => "Intermediate", "Intermediate (Science)" => "Intermediate (Science)", "High School" => "High School", "Graduate" => "Graduate", "Diploma" => "Diploma");
 $durationArr = array("1 Month" => "1 Month", "3 Months" => "3 Months", "6 Months" => "6 Months", "12 Months" => "12 Months", "1 Years" => "1 Years", "2 Years" => "2 Years");
 $programTypeArr = array("certification" => "Certification", "certified" => "Certified Diploma", "advance_diploma" => "Advance Diploma");
 
 
-// function uploadImage($conn, $image, $folder, $width = null, $height = null)
-// {
-//     $temp = explode(".", $_FILES[$image]["name"]);
-//     $filename = round(microtime(true)) . '.' . end($temp);
-//     $tempname = $_FILES[$image]["tmp_name"];
-//     $uploaded_folder = "../../admin-assets/img/" . $folder . "/" . $filename;
-//     if (move_uploaded_file($tempname, $uploaded_folder)) {
-//         $filename = "/admin-assets/img/" . $folder . "/" . $filename;
-//         return  $filename;
-//     } else {
-//         echo json_encode(['status' => 400, 'message' => 'Unable to save photo!']);
-//         exit();
-//     }
-// }
 
-// function uploadImage($conn, $image, $folder, $width = null, $height = null)
+// function uploadImage($conn, $image, $folder, $oldImagePath = null, $width = null, $height = null)
 // {
+//     // Check and delete the old image if provided
+//     if ($oldImagePath && file_exists("../../" . ltrim($oldImagePath, "/"))) {
+//         unlink("../../" . ltrim($oldImagePath, "/"));
+//     }
+
 //     $temp = explode(".", $_FILES[$image]["name"]);
 //     $filename = round(microtime(true)) . '.' . end($temp);
 //     $tempname = $_FILES[$image]["tmp_name"];
@@ -213,25 +204,23 @@ $programTypeArr = array("certification" => "Certification", "certified" => "Cert
 
 //     if (move_uploaded_file($tempname, $uploaded_file)) {
 //         $filename = "/admin-assets/img/" . $folder . "/" . $filename;
-//         return  $filename;
+//         return $filename;
 //     } else {
 //         echo json_encode(['status' => 400, 'message' => 'Unable to save photo!']);
 //         exit();
 //     }
 // }
-function uploadImage($conn, $image, $folder, $oldImagePath = null, $width = null, $height = null)
-{
-    // Check and delete the old image if provided
-    if ($oldImagePath && file_exists("../../" . ltrim($oldImagePath, "/"))) {
-        unlink("../../" . ltrim($oldImagePath, "/"));
-    }
 
+
+// Upload function for mutiple cms website with documents_root
+function uploadImage($conn, $image, $folder, $width = null, $height = null)
+{
     $temp = explode(".", $_FILES[$image]["name"]);
     $filename = round(microtime(true)) . '.' . end($temp);
     $tempname = $_FILES[$image]["tmp_name"];
-    $uploaded_folder = "../../admin-assets/img/" . $folder;
 
-    // Create the folder if it does not exist
+    $uploaded_folder = $_SERVER['DOCUMENT_ROOT'] . "/admin-assets/img/" . $folder;
+
     if (!is_dir($uploaded_folder)) {
         mkdir($uploaded_folder, 0777, true);
     }
@@ -239,46 +228,89 @@ function uploadImage($conn, $image, $folder, $oldImagePath = null, $width = null
     $uploaded_file = $uploaded_folder . "/" . $filename;
 
     if (move_uploaded_file($tempname, $uploaded_file)) {
-        $filename = "/admin-assets/img/" . $folder . "/" . $filename;
-        return $filename;
+        $baseUrl = "http://" . $_SERVER['HTTP_HOST'];
+        $fullUrl = $baseUrl . "/admin-assets/img/" . $folder . "/" . $filename;
+
+        return $fullUrl;
     } else {
         echo json_encode(['status' => 400, 'message' => 'Unable to save photo!']);
         exit();
     }
 }
 
+// simple store in local folder
+// function uploadsImage($conn, $image, $folder, $width = null, $height = null)
+// {
+//     // Ensure that the destination folder exists
+//     $destinationFolder = "../../admin-assets/img/" . $folder . "/";
+//     if (!file_exists($destinationFolder) && !mkdir($destinationFolder, 0777, true)) {
+//         // Failed to create the directory
+//         echo json_encode(['status' => 400, 'message' => 'Unable to create directory!']);
+//         exit();
+//     }
+
+//     // Handle file upload for each file
+//     $filenames = [];
+//     foreach ($_FILES[$image]["name"] as $key => $name) {
+//         // Handle file upload
+//         $temp = explode(".", $name);
+//         if (!is_array($temp) || count($temp) < 2) {
+//             // Invalid file name format
+//             echo json_encode(['status' => 400, 'message' => 'Invalid file name format!']);
+//             exit();
+//         }
+
+//         $filename = round(microtime(true)) . '_' . $key . '.' . end($temp);
+//         $tempname = $_FILES[$image]["tmp_name"][$key];
+//         $uploaded_file = $destinationFolder . $filename;
+
+//         if (move_uploaded_file($tempname, $uploaded_file)) {
+//             $filename = "/admin-assets/img/" . $folder . "/" . $filename;
+//             $filenames[] = $filename; // Add filename to the list
+//         } else {
+//             // Failed to move the uploaded file
+//             echo json_encode(['status' => 400, 'message' => 'Unable to upload image!']);
+//             exit();
+//         }
+//     }
+
+//     return $filenames;
+// }
 
 
+// function with with proper server Document_root location
 function uploadsImage($conn, $image, $folder, $width = null, $height = null)
 {
-    // Ensure that the destination folder exists
-    $destinationFolder = "../../admin-assets/img/" . $folder . "/";
-    if (!file_exists($destinationFolder) && !mkdir($destinationFolder, 0777, true)) {
-        // Failed to create the directory
+    // Destination folder
+    $uploaded_folder = $_SERVER['DOCUMENT_ROOT'] . "/admin-assets/img/" . $folder;
+
+    // Create folder if it doesn't exist
+    if (!is_dir($uploaded_folder) && !mkdir($uploaded_folder, 0777, true)) {
         echo json_encode(['status' => 400, 'message' => 'Unable to create directory!']);
         exit();
     }
 
-    // Handle file upload for each file
+    // Handle multiple file uploads
     $filenames = [];
     foreach ($_FILES[$image]["name"] as $key => $name) {
-        // Handle file upload
+        // Ensure the file has a valid name and extension
         $temp = explode(".", $name);
         if (!is_array($temp) || count($temp) < 2) {
-            // Invalid file name format
             echo json_encode(['status' => 400, 'message' => 'Invalid file name format!']);
             exit();
         }
 
+        // Generate unique file name
         $filename = round(microtime(true)) . '_' . $key . '.' . end($temp);
         $tempname = $_FILES[$image]["tmp_name"][$key];
-        $uploaded_file = $destinationFolder . $filename;
+        $uploaded_file = $uploaded_folder . "/" . $filename;
 
+        // Move uploaded file to the destination folder
         if (move_uploaded_file($tempname, $uploaded_file)) {
-            $filename = "/admin-assets/img/" . $folder . "/" . $filename;
-            $filenames[] = $filename; // Add filename to the list
+            $baseUrl = "http://" . $_SERVER['HTTP_HOST'];
+            $fullUrl = $baseUrl . "/admin-assets/img/" . $folder . "/" . $filename;
+            $filenames[] = $fullUrl;
         } else {
-            // Failed to move the uploaded file
             echo json_encode(['status' => 400, 'message' => 'Unable to upload image!']);
             exit();
         }
@@ -322,14 +354,12 @@ function uploadVideo($conn, $video, $folder)
 
         // Move the uploaded file to the target folder
         if (move_uploaded_file($tempname, $uploaded_file)) {
-            // Return the relative path to the uploaded file
             return "/admin-assets/upload/" . $folder . "/" . $filename;
         } else {
             echo json_encode(['status' => 400, 'message' => 'Unable to save the video file.']);
             exit;
         }
     } else {
-        // If no file was uploaded or there was an error
         echo json_encode(['status' => 400, 'message' => 'No video file uploaded or an error occurred.']);
         exit;
     }

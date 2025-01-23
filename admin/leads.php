@@ -24,9 +24,9 @@
                     {
                         data: 'Name'
                     },
-                    {
-                        data: 'Status'
-                    },
+                    // {
+                    //     data: 'Status'
+                    // },
                     {
                         data: 'Phone'
                     },
@@ -51,30 +51,30 @@
                             return '<span class="text-nowrap">' + $name + '</span>';
                         }
                     },
-                    {
-                        targets: 2,
-                        render: function(data, type, full, meta) {
-                            var id = full['ID'];
-                            var $checkedStatus = full['Status'] == 1 ? 'checked' : '';
-                            var $nameStatus = full['Status'] == 1 ? 'Yes' : 'No';
-                            return (
-                                '<label class="switch">' +
-                                '<input type="checkbox" ' +
-                                $checkedStatus +
-                                ' class="switch-input" onclick="updateActiveStatus(\'/admin/app/status/update\', \'leads\', ' + id + ')">' +
-                                '<span class="switch-toggle-slider">' +
-                                '<span class="switch-on">' +
-                                '<i class="ti ti-check"></i>' +
-                                '</span>' +
-                                '<span class="switch-off">' +
-                                '<i class="ti ti-x"></i>' +
-                                '</span>' +
-                                '</span>' +
-                                '<span class="switch-label">' + $nameStatus + '</span>' +
-                                '</label>'
-                            );
-                        },
-                    },
+                    // {
+                    //     targets: 2,
+                    //     render: function(data, type, full, meta) {
+                    //         var id = full['ID'];
+                    //         var $checkedStatus = full['Status'] == 1 ? 'checked' : '';
+                    //         var $nameStatus = full['Status'] == 1 ? 'Yes' : 'No';
+                    //         return (
+                    //             '<label class="switch">' +
+                    //             '<input type="checkbox" ' +
+                    //             $checkedStatus +
+                    //             ' class="switch-input" onclick="updateActiveStatus(\'/admin/app/status/update\', \'leads\', ' + id + ')">' +
+                    //             '<span class="switch-toggle-slider">' +
+                    //             '<span class="switch-on">' +
+                    //             '<i class="ti ti-check"></i>' +
+                    //             '</span>' +
+                    //             '<span class="switch-off">' +
+                    //             '<i class="ti ti-x"></i>' +
+                    //             '</span>' +
+                    //             '</span>' +
+                    //             '<span class="switch-label">' + $nameStatus + '</span>' +
+                    //             '</label>'
+                    //         );
+                    //     },
+                    // },
 
 
 
@@ -82,7 +82,7 @@
 
                     {
                         // Phone
-                        targets: 3,
+                        targets: 2,
                         render: function(data, type, full, meta) {
                             var $name = full['Phone'];
                             return '<span class="text-nowrap">' + $name + '</span>';
@@ -90,7 +90,7 @@
                     },
                     {
                         // Email
-                        targets: 4,
+                        targets: 3,
                         render: function(data, type, full, meta) {
                             var $name = full['Email'];
                             return '<span class="text-nowrap">' + $name + '</span>';
@@ -107,9 +107,9 @@
                             var id = full['ID'];
                             return (
                                 '<span class="text-nowrap">' +
-                                '<button class="btn btn-sm btn-icon me-2" onclick="edit(\'leads\', ' + id + ', \'modal-lg\')">' +
-                                '<i class="ti ti-edit"></i>' +
-                                '</button>' +
+                                // '<button class="btn btn-sm btn-icon me-2" onclick="edit(\'leads\', ' + id + ', \'modal-lg\')">' +
+                                // '<i class="ti ti-edit"></i>' +
+                                // '</button>' +
                                 '<button class="btn btn-sm btn-icon delete-record" onclick="destroy(&#39;/admin/app/leads/destroy&#39;, ' + id + ')">' +
                                 '<i class="ti ti-trash"></i>' +
                                 '</button>' +
@@ -182,7 +182,7 @@
                 <tr>
                     <th>No.</th>
                     <th>Name</th>
-                    <th>Status</th>
+                    <!-- <th>Status</th> -->
                     <th>Phone</th>
                     <th>Email</th>
                     <th></th>

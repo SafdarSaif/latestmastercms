@@ -39,7 +39,7 @@ if ($subdomain) {
 } else {
   $username = "root";
   $password = "";
-  $database = "master_new_db";
+  $database = "jvns_db";
 }
 
 $conn = mysqli_connect($hostname, $username, $password, $database);

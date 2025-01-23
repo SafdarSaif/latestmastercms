@@ -31,7 +31,7 @@
       <input type="hidden" name="updated_file" value="<?= $blogsArr['Photo'] ?>">
       <input type="file" id="photo" name="photo" class="form-control border-primary shadow-sm" accept="image/*" onchange="fileValidation('photo')" />
       <?php if (!empty($blogsArr['Photo'])) { ?>
-        <img src="/admin<?= $blogsArr['Photo'] ?>" height="50" />
+        <img src="<?= $blogsArr['Photo'] ?>" height="50" />
       <?php } ?>
       <small class="form-text text-muted">Accepted formats: PNG, JPG, JPEG, SVG, AVIF</small>
     </div>

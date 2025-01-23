@@ -36,19 +36,17 @@ if (isset($_GET['id'])) {
                     </select>
                 </div>
 
-            
                 <!-- Upload Images -->
                 <div class="mb-3 col-md-12">
                     <label class="form-label">Upload Images <span class="text-danger">*</span></label>
                     <div id="add_new_images">
                         <?php
                         $existingImages = explode(', ', $getdata['image_url']);
-                        $i=1;
-                        foreach ($existingImages as $image) { $i++; ?>
+                        foreach ($existingImages as $index => $image) { ?>
                             <div class="input-group mb-3">
                                 <input type="hidden" name="existing_images[]" value="<?= $image ?>">
-                                <input type="file" class="form-control image-upload" id="photo_<?=$i ?>" onchange="fileValidation('photo_<?=$i ?>')" accept="image/*" name="new_images[]" multiple>
-                                <?php if (!empty($id) && !empty($image)) { ?>
+                                <input type="file" class="form-control image-upload" id="photo_<?= $index ?>" onchange="fileValidation('photo_<?= $index ?>')" accept="image/*" name="new_images[]" multiple>
+                                <?php if (!empty($image)) { ?>
                                     <img src="/admin<?= $image ?>" height="50" />
                                 <?php } ?>
                                 <button type="button" class="btn btn-danger remove-image">Remove</button>
@@ -71,81 +69,78 @@ if (isset($_GET['id'])) {
     </div>
 </div>
 
-
 <script>
-$(document).ready(function() {
-    var count = 0;
+    $(document).ready(function() {
+        var count = 0;
 
-    $('.add-image').on('click', function() {
-        count++;
-        var html = '<div class="input-group mb-3">' +
-            '<input type="file" class="form-control image-upload" id="photo' + count + '" onchange="fileValidation(\'photo' + count + '\')" accept="image/png, image/jpg, image/jpeg, image/svg,image/avif" name="new_images[]"multiple>' +
-            '<button type="button" class="btn btn-danger remove-image">Remove</button>' +
-            '</div>';
-        $('#add_new_images').append(html);
-    });
+        // Add new image input
+        $('.add-image').on('click', function() {
+            count++;
+            var html = '<div class="input-group mb-3">' +
+                '<input type="file" class="form-control image-upload" id="photo' + count + '" onchange="fileValidation(\'photo' + count + '\')" accept="image/png, image/jpg, image/jpeg, image/svg,image/avif" name="new_images[]" multiple>' +
+                '<button type="button" class="btn btn-danger remove-image">Remove</button>' +
+                '</div>';
+            $('#add_new_images').append(html);
+        });
 
-    $('#add_new_images').on('click', '.remove-image', function() {
-        $(this).closest('.input-group').remove();
-    });
+        // Remove image input
+        $('#add_new_images').on('click', '.remove-image', function() {
+            $(this).closest('.input-group').remove();
+        });
 
-    $('#form-edit-gallery').validate({
-        errorPlacement: function(error, element) {
-            if (element.is("select")) {
-                error.insertAfter(element.parent());
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        rules: {}
-    });
-
-    $("#form-edit-gallery").on("submit", function(e) {
-        if ($('#form-edit-gallery').valid()) {
-            $(':input[type="submit"]').prop('disabled', true);
-            var formData = new FormData(this);
-            $.ajax({
-                url: this.action,
-                type: 'post',
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function(data) {
-                    if (data.status == 200) {
-                        $('.modal').modal('hide');
-                        toastr.success(data.message, 'Success');
-                        $('#gallery_image-table').DataTable().ajax.reload(null, false);
-                    } else {
-                        $(':input[type="submit"]').prop('disabled', false);
-                        toastr.error(data.message, 'Error');
-                    }
+        // Form validation before submit
+        $('#form-edit-gallery').validate({
+            errorPlacement: function(error, element) {
+                if (element.is("select")) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
                 }
-            });
-            e.preventDefault();
-        }
-    });
-});
-</script>
-<script>
-  function fileValidation(id) {
-    var fi = document.getElementById(id);
+            }
+        });
 
-    // console.log(fi);
-    // alert(id);
-    if (fi.files.length > 0) {
-      for (var i = 0; i <= fi.files.length - 1; i++) {
-        var fsize = fi.files.item(i).size;
-        var file = Math.round((fsize / 1024));
-        // The size of the file.
-        if (file >= 500) {
-          
-          $('#' + id).val('');
-          // alert("File too Big, each file should be less than or equal to 500KB");
-          toastr.error("File too Big, each file should be less than or equal to 500KB");
+        // Submit form via AJAX
+        $("#form-edit-gallery").on("submit", function(e) {
+            if ($('#form-edit-gallery').valid()) {
+                $(':input[type="submit"]').prop('disabled', true);
+                var formData = new FormData(this);
+                $.ajax({
+                    url: this.action,
+                    type: 'post',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.status == 200) {
+                            $('.modal').modal('hide');
+                            toastr.success(data.message, 'Success');
+                            $('#gallery_image-table').DataTable().ajax.reload(null, false);
+                        } else {
+                            $(':input[type="submit"]').prop('disabled', false);
+                            toastr.error(data.message, 'Error');
+                        }
+                    }
+                });
+                e.preventDefault();
+            }
+        });
+    });
+
+    // File validation function
+    function fileValidation(id) {
+        var fi = document.getElementById(id);
+
+        if (fi.files.length > 0) {
+            for (var i = 0; i < fi.files.length; i++) {
+                var fsize = fi.files.item(i).size;
+                var file = Math.round(fsize / 1024); // size in KB
+                if (file >= 500) {
+                    $('#' + id).val(''); // clear the file input
+                    toastr.error("File too Big, each file should be less than or equal to 500KB");
+                }
+            }
         }
-      }
     }
-  }
 </script>

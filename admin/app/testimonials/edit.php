@@ -40,7 +40,7 @@ if (isset($_GET['id'])) {
           <input type="hidden" name="updated_image" value="<?= $testimonial['Image'] ?>">
           <input type="file" name="image" id="image" class="form-control" onchange="fileValidation('image')" accept="image/png, image/jpg, image/jpeg, image/svg,image/avif">
           <?php if (!empty($testimonial['Image'])) { ?>
-            <img src="/admin<?= $testimonial['Image'] ?>" height="50" />
+            <img src="<?= $testimonial['Image'] ?>" height="50" />
           <?php } ?>
         </div>
 
