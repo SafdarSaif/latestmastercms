@@ -1,13 +1,13 @@
 <?php
 function session_error_function()
 {
-	header("Location: /");
+    header("Location: /");
 }
 
 set_error_handler('session_error_function');
 session_start();
 if (!isset($_SESSION['Role'])) {
-	header("Location: /admin/login");
+    header("Location: /admin/login");
 }
 restore_error_handler();
 date_default_timezone_set('Asia/Kolkata');
@@ -17,15 +17,14 @@ include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/db-config.php');
 
 
 
-$query = "SELECT  Name, Logo FROM theme_settings WHERE Status = 1"; 
+$query = "SELECT  Name, Logo FROM theme_settings WHERE Status = 1";
 $result = mysqli_query($conn, $query);
 
-$logo_url = './assets/images/default-logo.png'; 
+$logo_url = './assets/images/default-logo.png';
 if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $logo_url = $row['Logo'];
     $name = $row['Name'];
-
 }
 ?>
 
@@ -34,6 +33,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact " dir="ltr"
     data-theme="theme-default" data-assets-path="/assets/" data-template="vertical-menu-template" data-style="light">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport"
@@ -44,7 +44,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     <!-- Favicon -->
     <!-- <link rel="icon" type="image/x-icon"
         href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/favicon/favicon.ico" /> -->
-        <link rel="icon" type="image/x-icon" href="/admin/<?= $logo_url; ?>" />
+    <link rel="icon" type="image/x-icon" href="/admin/<?= $logo_url; ?>" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -97,22 +97,23 @@ if ($result && mysqli_num_rows($result) > 0) {
     <!-- {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}} -->
 
-    
+
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+    
+    <!-- Daterangepicker CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
 
 
-<!-- 
+    <!-- 
 {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}} -->
 
-<!-- jQuery -->
-<!-- {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}} -->
-
-
+    <!-- jQuery -->
+    <!-- {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}} -->

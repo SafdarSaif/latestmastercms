@@ -94,9 +94,17 @@
 
 
 <!-- Date Range Picker -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> -->
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.js"></script>
 <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+
+<!-- jQuery -->
+
+<!-- Moment.js (Required by Daterangepicker) -->
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+<!-- Daterangepicker JS -->
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 

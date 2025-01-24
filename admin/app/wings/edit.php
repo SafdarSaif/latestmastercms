@@ -67,7 +67,7 @@ if (isset($_GET['id'])) {
       <input type="hidden" name="updated_file" value="<?= $wingsArr['Media_File'] ?>">
       <input type="file" name="media_file" id="media_file" class="form-control border-primary shadow-sm" accept="image/*">
       <?php if (!empty($id) && !empty($wingsArr['Media_File'])): ?>
-        <img src="/admin<?= $wingsArr['Media_File'] ?>" height="50" />
+        <img src="<?= $wingsArr['Media_File'] ?>" height="50" />
       <?php endif; ?>
     </div>
 

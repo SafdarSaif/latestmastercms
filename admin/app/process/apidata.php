@@ -24,4 +24,13 @@ if ($method == 'getBlogs') {
 if ($method == 'getGalleryImages') {
     $Process->getGalleryImages();
 }
+if ($method == 'getevents') {
+    $Process->getevents();
+}
+if ($method == 'getAnnouncement') {
+    $Process->getAnnouncement();
+}
+if ($method == 'storeLeads') {
+    $Process->storeLeads();
+}
 ?>

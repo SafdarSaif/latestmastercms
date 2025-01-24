@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+print_r($_SERVER['REQUEST_METHOD']);die;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require '../../includes/db-config.php';
     require '../../includes/helper.php';

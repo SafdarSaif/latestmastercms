@@ -39,7 +39,7 @@ require '../../includes/helper.php'; ?>
       <select name="wing_heading" id="wing_heading" class="form-control" required>
         <option value="" disabled selected>Select a Wing Heading</option>
         <?php foreach ($wingHeadingArr as $heading) : ?>
-          <option value="<?=  $heading['ID'] ?>"><?= $heading['Name'] ?></option>
+          <option value="<?= $heading['ID'] ?>"><?= $heading['Name'] ?></option>
         <?php endforeach; ?>
       </select>
       <div class="invalid-feedback">Wing heading is required.</div>
@@ -51,6 +51,13 @@ require '../../includes/helper.php'; ?>
       <input type="date" id="date" name="date" class="form-control" required />
       <div class="invalid-feedback">Date is required.</div>
     </div>
+
+    <!-- <div class="col-md-6">
+      <label class="form-label fw-semibold" for="date_range">Date Range <span class="text-danger">*</span></label>
+      <input type="text" id="date_time_range" name="date" class="form-control" placeholder="Select date range" required />
+      <div class="invalid-feedback">Date range is required.</div>
+    </div> -->
+
 
     <!-- Media Type -->
     <div class="col-md-12">
@@ -115,6 +122,27 @@ require '../../includes/helper.php'; ?>
     </div>
   </form>
 </div>
+
+
+
+
+
+<!-- <script>
+  $(document).ready(function() {
+    $('#date_time_range').daterangepicker({
+      timePicker: true, // Enable time picker
+      timePicker24Hour: false, // Use 12-hour format
+      timePickerSeconds: false, // Hide seconds
+      locale: {
+        format: 'DD-MM-YYYY hh:mm A', // Indian format with 12-hour time and AM/PM
+      },
+      startDate: moment().startOf('hour'), // Default start time
+      endDate: moment().startOf('hour').add(1, 'hour'), // Default end time
+    });
+  });
+</script> -->
+
+
 
 
 <script>
