@@ -107,7 +107,7 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
 <!-- Filter Section -->
 <div class="row mb-3">
     <div class="col-md-3">
-        <label for="typeFilter" class="form-label">Filter by Type</label>
+        <label for="typeFilter" class="form-label">Filter for Lead Source</label>
         <select id="typeFilter" class="form-select">
             <option value="">All Types</option>
             <<?php foreach ($types as $type): ?>
