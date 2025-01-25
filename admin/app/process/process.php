@@ -207,12 +207,13 @@ class Process
         $mobile = mysqli_real_escape_string($this->conn, $_POST['phone'] ?? '');
         $message = mysqli_real_escape_string($this->conn, $_POST['con_message'] ?? '');
         $address = mysqli_real_escape_string($this->conn, $_POST['con_address'] ?? '');
+        $type = mysqli_real_escape_string($this->conn, $_POST['form_type'] ?? '');
 
         if (empty($name) || empty($email) || empty($mobile)) {
             $response = ['status' => 'error', 'message' => 'Name, Email, and Mobile are required.'];
         } else {
             // Insert data into the leads table
-            $query = "INSERT INTO leads (Name, Email, Subject, Mobile, Message, Address) VALUES ('$name', '$email', '$subject', '$mobile', '$message', '$address')";
+            $query = "INSERT INTO leads (Name, Email, Subject, Mobile, Message, Address,Type) VALUES ('$name', '$email', '$subject', '$mobile', '$message', '$address', '$type')";
             $result = mysqli_query($this->conn, $query);
 
             if ($result) {

@@ -2,31 +2,39 @@
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/header-bottom.php');  ?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/side-menu.php'); ?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/menu.php'); ?>
+
+
+<?php
+include './includes/db-config.php';
+
+$typeQuery = "SELECT DISTINCT Type FROM leads";
+$typeResults = mysqli_query($conn, $typeQuery);
+
+$types = [];
+while ($row = mysqli_fetch_assoc($typeResults)) {
+    $types[] = $row['Type'];
+}
+?>
 <script type="module">
     $(function() {
         var dataTableleads = $('#leads-table'),
             dt_permission;
-        // Users List datatable
+
         if (dataTableleads.length) {
             dt_permission = dataTableleads.DataTable({
                 ajax: {
-                    'url': '/admin/app/leads/server.php',
-                    'type': 'POST',
-                    // 'dataSrc': function(json) {
-                    // 	console.log('Data received:', json); 
-                    // 	return json.data;
-                    // }
+                    url: '/admin/app/leads/server.php',
+                    type: 'POST',
+                    data: function(d) {
+                        d.typeFilter = $('#typeFilter').val(); 
+                    },
                 },
-
                 columns: [{
-                        data: 'No',
+                        data: 'No'
                     },
                     {
                         data: 'Name'
                     },
-                    // {
-                    //     data: 'Status'
-                    // },
                     {
                         data: 'Phone'
                     },
@@ -41,64 +49,27 @@
                         targets: 0,
                         render: function(data, type, full, meta) {
                             return data;
-                        }
+                        },
                     },
                     {
-                        // Name
                         targets: 1,
                         render: function(data, type, full, meta) {
-                            var $name = full['Name'];
-                            return '<span class="text-nowrap">' + $name + '</span>';
-                        }
+                            return '<span class="text-nowrap">' + full['Name'] + '</span>';
+                        },
                     },
-                    // {
-                    //     targets: 2,
-                    //     render: function(data, type, full, meta) {
-                    //         var id = full['ID'];
-                    //         var $checkedStatus = full['Status'] == 1 ? 'checked' : '';
-                    //         var $nameStatus = full['Status'] == 1 ? 'Yes' : 'No';
-                    //         return (
-                    //             '<label class="switch">' +
-                    //             '<input type="checkbox" ' +
-                    //             $checkedStatus +
-                    //             ' class="switch-input" onclick="updateActiveStatus(\'/admin/app/status/update\', \'leads\', ' + id + ')">' +
-                    //             '<span class="switch-toggle-slider">' +
-                    //             '<span class="switch-on">' +
-                    //             '<i class="ti ti-check"></i>' +
-                    //             '</span>' +
-                    //             '<span class="switch-off">' +
-                    //             '<i class="ti ti-x"></i>' +
-                    //             '</span>' +
-                    //             '</span>' +
-                    //             '<span class="switch-label">' + $nameStatus + '</span>' +
-                    //             '</label>'
-                    //         );
-                    //     },
-                    // },
-
-
-
-
-
                     {
-                        // Phone
                         targets: 2,
                         render: function(data, type, full, meta) {
-                            var $name = full['Phone'];
-                            return '<span class="text-nowrap">' + $name + '</span>';
-                        }
+                            return '<span class="text-nowrap">' + full['Phone'] + '</span>';
+                        },
                     },
                     {
-                        // Email
                         targets: 3,
                         render: function(data, type, full, meta) {
-                            var $name = full['Email'];
-                            return '<span class="text-nowrap">' + $name + '</span>';
-                        }
+                            return '<span class="text-nowrap">' + full['Email'] + '</span>';
+                        },
                     },
-
                     {
-                        // Actions
                         targets: -1,
                         searchable: false,
                         title: 'Actions',
@@ -107,71 +78,44 @@
                             var id = full['ID'];
                             return (
                                 '<span class="text-nowrap">' +
-                                // '<button class="btn btn-sm btn-icon me-2" onclick="edit(\'leads\', ' + id + ', \'modal-lg\')">' +
-                                // '<i class="ti ti-edit"></i>' +
-                                // '</button>' +
-                                '<button class="btn btn-sm btn-icon delete-record" onclick="destroy(&#39;/admin/app/leads/destroy&#39;, ' + id + ')">' +
+                                '<button class="btn btn-sm btn-icon delete-record" onclick="destroy(\'/admin/app/leads/destroy\', ' + id + ')">' +
                                 '<i class="ti ti-trash"></i>' +
                                 '</button>' +
                                 '</span>'
                             );
-                        }
-                    }
-
+                        },
+                    },
                 ],
                 aaSorting: false,
-                dom: '<"row mx-1"' +
-                    '<"col-sm-12 col-md-3" l>' +
-                    '<"col-sm-12 col-md-9"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-md-end justify-content-center flex-wrap me-1"<"me-3"f>B>>' +
-                    '>t' +
-                    '<"row mx-2"' +
-                    '<"col-sm-12 col-md-6"i>' +
-                    '<"col-sm-12 col-md-6"p>' +
-                    '>',
+                dom: '<"row mx-1"<"col-md-3"l><"col-md-9"f>>t<"row mx-2"<"col-md-6"i><"col-md-6"p>>',
                 language: {
                     sLengthMenu: 'Show _MENU_',
                     search: 'Search',
-                    searchPlaceholder: 'Search..'
+                    searchPlaceholder: 'Search..',
                 },
-                buttons: [{
-                    text: '',
-                    className: 'add-new btn btn-primary mb-3 mb-md-0 waves-effect waves-light',
-                    attr: {
-                        'onclick': "add('app/leads/create.php', 'modal-lg')"
+            });
 
-                    },
-                    init: function(api, node, config) {
-                        $(node).removeClass('btn-secondary');
-                    }
-                }],
-                // For responsive popup
-                responsive: {
-                    details: {
-                        display: $.fn.dataTable.Responsive.display.modal({
-                            header: function(row) {
-                                var data = row.data();
-                                return 'Details of ' + data['name'];
-                            }
-                        }),
-                        type: 'column',
-                        renderer: function(api, rowIdx, columns) {
-                            var data = $.map(columns, function(col, i) {
-                                return col.title !==
-                                    '' ? '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
-                                    '<td>' + col.title + ':</td> ' +
-                                    '<td>' + col.data + '</td>' +
-                                    '</tr>' : '';
-                            }).join('');
-
-                            return data ? $('<table class="table"/><tbody />').append(data) : false;
-                        }
-                    }
-                }
+            $('#typeFilter').on('change', function() {
+                dt_permission.ajax.reload(); 
             });
         }
     });
 </script>
+
 <h4 class="mb-4">Website Leads</h4>
+
+<!-- Filter Section -->
+<div class="row mb-3">
+    <div class="col-md-3">
+        <label for="typeFilter" class="form-label">Filter by Type</label>
+        <select id="typeFilter" class="form-select">
+            <option value="">All Types</option>
+            <<?php foreach ($types as $type): ?>
+                <option value="<?=$type; ?>"><?=$type; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
 
 <!-- Admission Table -->
 <div class="card">
