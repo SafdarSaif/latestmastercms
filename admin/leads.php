@@ -42,6 +42,9 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
                         data: 'Email'
                     },
                     {
+                        data: 'Message'
+                    },
+                    {
                         data: ''
                     },
                 ],
@@ -67,6 +70,12 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
                         targets: 3,
                         render: function(data, type, full, meta) {
                             return '<span class="text-nowrap">' + full['Email'] + '</span>';
+                        },
+                    },
+                    {
+                        targets: 4,
+                        render: function(data, type, full, meta) {
+                            return '<span class="text-nowrap">' + full['Message'] + '</span>';
                         },
                     },
                     {
@@ -116,6 +125,18 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
         </select>
     </div>
 </div>
+<!-- Filter Section (Right Side) -->
+<!-- <div class="row mb-3">
+    <div class="col-md-3 offset-md-9">
+        <label for="typeFilter" class="form-label fs-5 fw-bold text-secondary">Filter by Lead Source</label>
+        <select id="typeFilter" class="form-select form-select-lg shadow-sm">
+            <option value="">All Types</option>
+            <?php foreach ($types as $type): ?>
+                <option value="<?=$type; ?>"><?=$type; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div> -->
 
 <!-- Admission Table -->
 <div class="card">
@@ -129,6 +150,7 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
                     <!-- <th>Status</th> -->
                     <th>Phone</th>
                     <th>Email</th>
+                    <th>Message</th>
                     <th></th>
                 </tr>
             </thead>
