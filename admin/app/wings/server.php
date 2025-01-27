@@ -22,7 +22,6 @@ while ($row = mysqli_fetch_assoc($results)) {
     "ID" => $row['ID'],
     "Category" => $categoryArr["Name"],
     "Name" => $row["Name"],
-    // "Description"=> $destext,
     "Photo"=>$row['Media_File'],
     "Status" => $row["Status"],
     "Created_At" => $row["Created_At"],

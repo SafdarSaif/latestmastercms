@@ -2,7 +2,7 @@
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/header-bottom.php');  ?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/side-menu.php'); ?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/menu.php'); ?>
-<script type="module">
+<!-- <script type="module">
 	$(function() {
 		var dataTablewings = $('#wings-table'),
 			dt_permission;
@@ -20,6 +20,9 @@
 
 				columns: [{
 						data: 'No',
+					},
+					{
+						data: 'Name'
 					},
 					{
 						data: 'Name'
@@ -49,7 +52,15 @@
 						}
 					},
 					{
+						// Name
 						targets: 2,
+						render: function(data, type, full, meta) {
+							var $name = full['Name'];
+							return '<span class="text-nowrap">' + $name + '</span>';
+						}
+					},
+					{
+						targets: 3,
 						render: function(data, type, full, meta) {
 							var id = full['ID'];
 							var $checkedStatus = full['Status'] == 1 ? 'checked' : '';
@@ -78,7 +89,7 @@
 
 
 					{
-						targets: 3,
+						targets: 4,
 						render: function(data, type, full, meta) {
 							if (full['Photo']) {
 								return '<img src="' + full['Photo'] + '" alt="Photo" width="70">';
@@ -160,6 +171,132 @@
 			});
 		}
 	});
+</script> -->
+
+<script type="module">
+	$(function() {
+		var dataTableWings = $('#wings-table'),
+			dt_permission;
+
+		// Check if the table exists
+		if (dataTableWings.length) {
+			dt_permission = dataTableWings.DataTable({
+				ajax: {
+					url: '/admin/app/wings/server.php',
+					type: 'POST',
+				},
+				columns: [{
+						data: 'No'
+					},
+					{
+						data: 'Name'
+					},
+					{
+						data: 'Category'
+					},
+					{
+						data: 'Status'
+					},
+					{
+						data: 'Photo'
+					},
+					{
+						data: ''
+					},
+				],
+				columnDefs: [{
+						targets: 0,
+						render: function(data) {
+							return data;
+						}
+					},
+					{
+						targets: 1,
+						render: function(data, type, full) {
+							return '<span class="text-nowrap">' + full['Name'] + '</span>';
+						}
+					},
+					{
+						targets: 2,
+						render: function(data, type, full) {
+							return '<span class="text-nowrap">' + full['Category'] + '</span>';
+						}
+					},
+					{
+						targets: 3,
+						render: function(data, type, full) {
+							var id = full['ID'];
+							var status = full['Status'] == 1 ? 'checked' : '';
+							var statusText = full['Status'] == 1 ? 'Yes' : 'No';
+							return (
+								'<label class="switch">' +
+								'<input type="checkbox" ' + status +
+								' class="switch-input" onclick="updateActiveStatus(\'/admin/app/status/update\', \'wings\', ' + id + ')">' +
+								'<span class="switch-toggle-slider">' +
+								'<span class="switch-on"><i class="ti ti-check"></i></span>' +
+								'<span class="switch-off"><i class="ti ti-x"></i></span>' +
+								'</span>' +
+								'<span class="switch-label">' + statusText + '</span>' +
+								'</label>'
+							);
+						},
+					},
+					{
+						targets: 4,
+						render: function(data, type, full) {
+							return full['Photo'] ?
+								'<img src="' + full['Photo'] + '" alt="Photo" width="70">' :
+								'<span class="text-muted">No Image</span>';
+						}
+					},
+					{
+						targets: -1,
+						searchable: false,
+						title: 'Actions',
+						orderable: false,
+						render: function(data, type, full) {
+							var id = full['ID'];
+							return (
+								'<span class="text-nowrap">' +
+								'<button class="btn btn-sm btn-icon me-2" onclick="edit(\'wings\', ' + id + ', \'modal-lg\')">' +
+								'<i class="ti ti-edit"></i>' +
+								'</button>' +
+								'<button class="btn btn-sm btn-icon delete-record" onclick="destroy(\'/admin/app/wings/destroy\', ' + id + ')">' +
+								'<i class="ti ti-trash"></i>' +
+								'</button>' +
+								'</span>'
+							);
+						}
+					}
+				],
+				aaSorting: false,
+				dom: '<"row mx-1"' +
+					'<"col-sm-12 col-md-3" l>' +
+					'<"col-sm-12 col-md-9"<"dt-action-buttons text-end d-flex align-items-center justify-content-end"<"me-3"f>B>>' +
+					'>t' +
+					'<"row mx-2"' +
+					'<"col-sm-12 col-md-6"i>' +
+					'<"col-sm-12 col-md-6"p>' +
+					'>',
+				language: {
+					sLengthMenu: 'Show _MENU_',
+					search: 'Search',
+					searchPlaceholder: 'Search..',
+				},
+				buttons: [{
+					text: 'Add Wings Data',
+					className: 'add-new btn btn-primary mb-3 mb-md-0 waves-effect waves-light',
+					attr: {
+						'onclick': "add('app/wings/create.php', 'modal-lg')"
+
+					},
+					init: function(api, node, config) {
+						$(node).removeClass('btn-secondary');
+					}
+				}],
+			});
+		}
+	});
 </script>
 <h4 class="mb-4">Wing Data</h4>
 
@@ -172,6 +309,7 @@
 				<tr>
 					<th>No.</th>
 					<th>Name</th>
+					<th>Data Name</th>
 					<th>Status</th>
 					<th>Photo</th>
 					<th></th>

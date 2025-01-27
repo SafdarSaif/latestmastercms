@@ -18,8 +18,8 @@ while ($row = mysqli_fetch_assoc($results)) {
     $no = $i++;
 
 
-    if (strlen($row['Message']) > 40) {
-        $messtext = substr($row['Message'], 0, 40) . "...";
+    if (strlen($row['Message']) > 90) {
+        $messtext = substr($row['Message'], 0, 90) . "...";
     } else {
         $messtext = $row['Message'];
     }

@@ -15,7 +15,6 @@ require '../../includes/helper.php'; ?>
 </style>
 
 <div class="modal-header">
-  <!-- <h3 class="modal-title">Add Wings</h3> -->
   <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 </div>
 <div class="modal-body">

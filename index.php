@@ -7,15 +7,14 @@ include 'admin/includes/db-config.php';
 
 
 
-$query = "SELECT  Name, Logo FROM theme_settings WHERE Status = 1"; 
+$query = "SELECT  Name, Logo FROM theme_settings WHERE Status = 1";
 $result = mysqli_query($conn, $query);
 
-$logo_url = 'admin/assets/images/default-logo.png'; 
+$logo_url = 'admin/assets/images/default-logo.png';
 if ($result && mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
-    $logo_url = $row['Logo'];
-    $name = $row['Name'];
-
+  $row = mysqli_fetch_assoc($result);
+  $logo_url = $row['Logo'];
+  $name = $row['Name'];
 }
 ?>
 
@@ -154,7 +153,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
               <div class="mb-6">
                 <label for="email" class="form-label">Email or Username</label>
-                <input type="text" class="form-control" id="email" name="username" style="text-transform: uppercase" placeholder="Enter your email or username"  autofocus>
+                <input type="text" class="form-control" id="email" name="username" style="text-transform: uppercase" placeholder="Enter your email or username" autofocus>
               </div>
               <div class="mb-6 form-password-toggle">
                 <label class="form-label" for="password">Password</label>
@@ -295,4 +294,3 @@ if ($result && mysqli_num_rows($result) > 0) {
 
 
 </html>
-
