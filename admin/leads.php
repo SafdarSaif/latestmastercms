@@ -26,7 +26,7 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
                     url: '/admin/app/leads/server.php',
                     type: 'POST',
                     data: function(d) {
-                        d.typeFilter = $('#typeFilter').val(); 
+                        d.typeFilter = $('#typeFilter').val();
                     },
                 },
                 columns: [{
@@ -105,7 +105,7 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
             });
 
             $('#typeFilter').on('change', function() {
-                dt_permission.ajax.reload(); 
+                dt_permission.ajax.reload();
             });
         }
     });
@@ -120,7 +120,7 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
         <select id="typeFilter" class="form-select">
             <option value="">All Types</option>
             <<?php foreach ($types as $type): ?>
-                <option value="<?=$type; ?>"><?=$type; ?></option>
+                <option value="<?= $type; ?>"><?= $type; ?></option>
             <?php endforeach; ?>
         </select>
     </div>
