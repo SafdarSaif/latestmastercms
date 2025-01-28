@@ -8,38 +8,35 @@
 
 
 // Master CMS
-// $host = $_SERVER['HTTP_HOST'];
-// // print_r($host);
-// $domainParts = explode('.', $host);
-// // print_r($domainParts);
+$host = $_SERVER['HTTP_HOST'];
+$domainParts = explode('.', $host);
 
-// $subdomain = isset($domainParts[0]) ? $domainParts[0] : '';
+$subdomain = isset($domainParts[0]) ? $domainParts[0] : '';
 
-// // print_r($subdomain);
+// print_r($subdomain);
 
-// $subdomain = "rudraeducation";
+// $subdomain = "newtheme";
 
-$subdomain = "";
+// $subdomain = "";
 
-// Default database credentials.
 $hostname = "localhost";
 
 
 
 if ($subdomain) {
-  if ($subdomain === 'rudradigital') {
+  if ($subdomain == 'newtheme') {
     $username = "root";
     $password = "";
-    $database = "rudra_db";
-  } elseif ($subdomain === 'rudraeducation') {
+    $database = "master_new_db";
+  } elseif ($subdomain == 'oldtheme') {
     $username = "root";
     $password = "";
-    $database = "hims_db";
+    $database = "jvns_db";
   }
 } else {
   $username = "root";
   $password = "";
-  $database = "jvns_db";
+  $database = "master_db";
 }
 
 $conn = mysqli_connect($hostname, $username, $password, $database);
@@ -47,3 +44,10 @@ $conn = mysqli_connect($hostname, $username, $password, $database);
 
 
 include('config.php');
+// Include the config file if it exists
+// $configFile = 'config.php';
+// if (file_exists($configFile)) {
+//     include($configFile);
+// } else {
+//     die("Config file not found!");
+// }
