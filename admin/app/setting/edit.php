@@ -178,7 +178,7 @@ foreach ($mapping as $parentID => $children) {
                 <input type="file" name="photo" id="photo" class="form-control" onchange="fileValidation('photo')" accept="image/png, image/jpg, image/jpeg, image/svg,image/avif">
 
                 <?php if (!empty($editID) && !empty($settingData['Photo'])) { ?>
-                    <img src="/admin<?php echo !empty($editID) ? $settingData['Photo'] : ''; ?>" height="50" />
+                    <img src="<?php echo !empty($editID) ? $settingData['Photo'] : ''; ?>" height="50" />
                 <?php } ?>
             </div>
 

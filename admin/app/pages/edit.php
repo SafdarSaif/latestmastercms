@@ -33,7 +33,7 @@
         <input type="file" name="photo" id="photo" class="form-control border-primary shadow-sm" accept="image/*" onchange="fileValidation('photo')" />
         <small class="form-text text-muted">Accepted formats: PNG, JPG, JPEG, SVG, AVIF</small>
         <?php if (!empty($pagesArr['Photo'])) { ?>
-          <img src="/admin<?= $pagesArr['Photo'] ?>" height="50" />
+          <img src="<?= $pagesArr['Photo'] ?>" height="50" />
         <?php } ?>
       </div>
 

@@ -41,7 +41,7 @@ if (isset($_GET['id'])) {
     <!-- Answer -->
     <div class="col-12">
       <label class="form-label fw-semibold" for="answer">Answer <span class="text-danger">*</span></label>
-      <textarea id="editor" name="answer" class="ckeditor border-primary" rows="5" required><?= $getdata['answers'] ?></textarea>
+      <textarea id="editor" name="answer" class="ckeditor" rows="5" required><?= $getdata['answers'] ?></textarea>
       <span id="content-error" class="text-danger d-block mt-1" style="font-size: 12px;"></span>
     </div>
 
@@ -55,12 +55,7 @@ if (isset($_GET['id'])) {
 
 <script>
   $(document).ready(function () {
-    // Initialize SumoSelect
-    $('.sumoselect').SumoSelect({
-      search: true,
-      searchText: 'Enter here.'
-    });
-
+    
     // Initialize CKEditor
     CKEDITOR.replace('editor');
 
@@ -87,7 +82,7 @@ if (isset($_GET['id'])) {
           e.preventDefault();
           return false;
         } else {
-          $("#content-error").text(""); // Clear error if content is valid
+          $("#content-error").text(""); 
         }
 
         var formData = new FormData(this);

@@ -27,9 +27,9 @@
 					{
 						data: 'Status'
 					},
-					{
-						data: 'Photo'
-					},
+					// {
+					// 	data: 'Photo'
+					// },
 					{
 						data: ''
 					},
@@ -49,7 +49,7 @@
 						}
 					},
 					{
-						targets: 3,
+						targets: 2,
 						render: function(data, type, full, meta) {
 							var id = full['ID'];
 							var $checkedStatus = full['Status'] == 1 ? 'checked' : '';
@@ -77,15 +77,15 @@
 
 
 
-					{
-						targets: 2,
-						render: function(data, type, full, meta) {
-							if (full['Photo']) {
-								return '<img src="/admin/' + full['Photo'] + '" alt="Photo" width="70">';
-							}
-							return '<span class="text-muted">No Image</span>';
-						}
-					},
+					// {
+					// 	targets: 2,
+					// 	render: function(data, type, full, meta) {
+					// 		if (full['Photo']) {
+					// 			return '<img src="' + full['Photo'] + '" alt="Photo" width="70">';
+					// 		}
+					// 		return '<span class="text-muted">No Image</span>';
+					// 	}
+					// },
 
 					{
 						// Actions
@@ -172,7 +172,7 @@
 				<tr>
 					<th>No.</th>
 					<th>Name</th>
-					<th>Photo</th>
+					<!-- <th>Photo</th> -->
 					<th>Status</th>
 					<th></th>
 				</tr>

@@ -81,7 +81,7 @@
 						targets: 3,
 						render: function(data, type, full, meta) {
 							if (full['Photo']) {
-								return '<img src="/admin/' + full['Photo'] + '" alt="Photo" width="70">';
+								return '<img src="' + full['Photo'] + '" alt="Photo" width="70">';
 							}
 							return '<span class="text-muted">No Image</span>';
 						}

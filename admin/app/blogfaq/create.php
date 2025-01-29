@@ -30,7 +30,7 @@ require '../../includes/helper.php'; ?>
     <!-- Answer -->
     <div class="col-12">
       <label class="form-label fw-semibold" for="answer">Answer <span class="text-danger">*</span></label>
-      <textarea id="editor" name="answer" class="ckeditor border-primary" rows="5" required></textarea>
+      <textarea id="editor" name="answer" class="ckeditor" rows="5" required></textarea>
       <span id="content-error" class="text-danger d-block mt-1" style="font-size: 12px;"></span>
     </div>
 
@@ -45,12 +45,8 @@ require '../../includes/helper.php'; ?>
 <script>
   // Initialize SumoSelect
   $(document).ready(function () {
-    $('.sumoselect').SumoSelect({
-      search: true,
-      searchText: 'Enter here.'
-    });
+    
 
-    // Initialize CKEditor
     CKEDITOR.replace('editor');
 
     // Form validation
@@ -76,7 +72,7 @@ require '../../includes/helper.php'; ?>
           e.preventDefault();
           return false;
         } else {
-          $("#content-error").text(""); // Clear error if content is valid
+          $("#content-error").text(""); 
         }
 
         var formData = new FormData(this);

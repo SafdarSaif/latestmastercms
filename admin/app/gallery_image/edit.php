@@ -29,7 +29,9 @@ if (isset($_GET['id'])) {
                     <select name="gallery_id" id="gallery_id" class="form-control sumoselect" required>
                         <option value="">Select Gallery</option>
                         <?php foreach ($galleryArr as $gallery) { ?>
-                            <option value="<?= $gallery['id'] ?>" <?php if ($getdata['gallery_id'] == $gallery['id']) { echo "selected"; } ?>>
+                            <option value="<?= $gallery['id'] ?>" <?php if ($getdata['gallery_id'] == $gallery['id']) {
+                                                                        echo "selected";
+                                                                    } ?>>
                                 <?= $gallery['image_name'] ?>
                             </option>
                         <?php } ?>
@@ -47,7 +49,7 @@ if (isset($_GET['id'])) {
                                 <input type="hidden" name="existing_images[]" value="<?= $image ?>">
                                 <input type="file" class="form-control image-upload" id="photo_<?= $index ?>" onchange="fileValidation('photo_<?= $index ?>')" accept="image/*" name="new_images[]" multiple>
                                 <?php if (!empty($image)) { ?>
-                                    <img src="/admin<?= $image ?>" height="50" />
+                                    <img src="<?= $image ?>" height="50" />
                                 <?php } ?>
                                 <button type="button" class="btn btn-danger remove-image">Remove</button>
                             </div>
@@ -135,9 +137,9 @@ if (isset($_GET['id'])) {
         if (fi.files.length > 0) {
             for (var i = 0; i < fi.files.length; i++) {
                 var fsize = fi.files.item(i).size;
-                var file = Math.round(fsize / 1024); // size in KB
+                var file = Math.round(fsize / 1024); 
                 if (file >= 500) {
-                    $('#' + id).val(''); // clear the file input
+                    $('#' + id).val(''); 
                     toastr.error("File too Big, each file should be less than or equal to 500KB");
                 }
             }

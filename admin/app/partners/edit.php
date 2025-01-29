@@ -34,7 +34,7 @@ if (isset($_GET['id'])) {
                 <input type="hidden" name="updated_file" value="<?= $partner['Image'] ?>">
                 <input type="file" name="photo" id="photo" class="form-control border-primary shadow-sm" accept="image/png, image/jpg, image/jpeg, image/svg" />
                 <?php if (!empty($partner['Image'])) { ?>
-                    <img src="/admin<?= $partner['Image'] ?>" height="70" alt="Partner Image" />
+                    <img src="<?= $partner['Image'] ?>" height="70" alt="Partner Image" />
                 <?php } ?>
                 <small class="form-text text-muted">Accepted formats: PNG, JPG, JPEG, SVG</small>
             </div>

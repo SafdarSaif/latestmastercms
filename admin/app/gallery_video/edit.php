@@ -69,7 +69,7 @@ if (isset($_GET['id'])) {
           <?php if (!empty($galleryVideoArr['video'])): ?>
             <div class="video-preview">
               <iframe
-                src="/admin/<?= htmlspecialchars($galleryVideoArr['video'], ENT_QUOTES, 'UTF-8') ?>"
+                src="/admin/<?= $galleryVideoArr['video'] ?>"
                 frameborder="0"
                 allow="autoplay; encrypted-media"
                 allowfullscreen
@@ -102,58 +102,7 @@ if (isset($_GET['id'])) {
   </div>
 </div>
 
-<!-- <script>
-  $(document).ready(function() {
-    // Custom validation for ensuring only one input is provided
-    function validateVideoInputs() {
-      const videoLink = $('#video_link').val().trim();
-      const videoFile = $('#video_file').val().trim();
 
-      if (!videoLink && !videoFile) {
-        toastr.error('Please provide either a video link or upload a video.');
-        return false;
-      }
-      if (videoLink && videoFile) {
-        toastr.error('Please provide only one input: a video link or an uploaded video.');
-        return false;
-      }
-      return true;
-    }
-
-    $('#form-edit-gallery').on('submit', function(e) {
-      if ($('#form-edit-gallery').valid() && validateVideoInputs()) {
-        $(':input[type="submit"]').prop('disabled', true);
-        var formData = new FormData(this);
-        $.ajax({
-          url: this.action,
-          type: 'POST',
-          data: formData,
-          cache: false,
-          contentType: false,
-          processData: false,
-          dataType: "json",
-          success: function(data) {
-            if (data.status == 200) {
-              $('.modal').modal('hide');
-              toastr.success(data.message, 'Success');
-              $('#gallery_video-table').DataTable().ajax.reload(null, false);
-            } else {
-              $(':input[type="submit"]').prop('disabled', false);
-              toastr.error(data.message, 'Error');
-            }
-          },
-          error: function(xhr, status, error) {
-            $(':input[type="submit"]').prop('disabled', false);
-            toastr.error("An error occurred: " + error, 'Error');
-          }
-        });
-        e.preventDefault();
-      } else {
-        e.preventDefault();
-      }
-    });
-  });
-</script> -->
 
 <script>
   $(document).ready(function() {

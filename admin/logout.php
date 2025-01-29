@@ -5,4 +5,6 @@
   header("Expires: Mon, 26 Jun 1997 05:00:00 GMT");
   header("Pragma: no-cache");
   header ("Last-Modified: " . gmdate ("D, d M Y H:i:s") . " GMT");
-  header("Location: /admin/login");
+  // header("Location: ./index");
+  header("Location: /index"); 
+
