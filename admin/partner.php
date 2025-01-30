@@ -87,6 +87,27 @@
 						}
 					},
 
+					// {
+					// 	// Actions
+					// 	targets: -1,
+					// 	searchable: false,
+					// 	title: 'Actions',
+					// 	orderable: false,
+					// 	render: function(data, type, full, meta) {
+					// 		var id = full['ID'];
+					// 		return (
+					// 			'<span class="text-nowrap">' +
+					// 			'<button class="btn btn-sm btn-icon me-2" onclick="edit(\'partners\', ' + id + ', \'modal-lg\')">' +
+					// 			'<i class="ti ti-edit"></i>' +
+					// 			'</button>' +
+					// 			'<button class="btn btn-sm btn-icon delete-record" onclick="destroy(&#39;/admin/app/partners/destroy&#39;, ' + id + ')">' +
+					// 			'<i class="ti ti-trash"></i>' +
+					// 			'</button>' +
+					// 			'</span>'
+					// 		);
+					// 	},
+					// 	visible: false,  this is for hiding the action column
+					// }
 					{
 						// Actions
 						targets: -1,

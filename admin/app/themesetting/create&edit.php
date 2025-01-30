@@ -64,7 +64,7 @@ if ($checkQuery && $checkQuery->num_rows > 0) {
             <?php endif; ?>
             <input type="file" id="logo" name="logo" class="form-control" accept="image/*" onchange="fileValidation('logo')" />
             <?php if (!empty($themeArr['Logo'])): ?>
-                <img src="/admin<?= $themeArr['Logo'] ?>" height="50" class="mt-2" />
+                <img src="<?= $themeArr['Logo'] ?>" height="50" class="mt-2" />
             <?php endif; ?>
             <small class="form-text text-muted">Accepted formats: PNG, JPG, JPEG, SVG, AVIF</small>
         </div>
@@ -77,7 +77,7 @@ if ($checkQuery && $checkQuery->num_rows > 0) {
             <?php endif; ?>
             <input type="file" id="fav_icon" name="fav_icon" class="form-control" accept="image/*" onchange="fileValidation('fav_icon')" />
             <?php if (!empty($themeArr['Fav_Icon'])): ?>
-                <img src="/admin<?= $themeArr['Fav_Icon'] ?>" height="50" class="mt-2" />
+                <img src="<?= $themeArr['Fav_Icon'] ?>" height="50" class="mt-2" />
             <?php endif; ?>
             <small class="form-text text-muted">Accepted formats: PNG, JPG, ICO</small>
         </div>

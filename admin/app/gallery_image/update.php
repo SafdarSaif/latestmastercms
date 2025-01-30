@@ -14,9 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $query->fetch_assoc();
     $current_images = explode(', ', $result['image_url']);
 
-    $target_dir = "../../uploads/";
+    $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/uploads/";
     if (!file_exists($target_dir)) {
-        mkdir($target_dir, 0777, true); // Ensure uploads directory exists
+        mkdir($target_dir, 0777, true); 
     }
 
     // Process new images
