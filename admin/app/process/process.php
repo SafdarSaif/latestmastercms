@@ -37,7 +37,7 @@ class Process
     public function getBlogs()
     {
         $response = [];
-        $query = "SELECT ID, Name, Status, Created_At, Photo, Description FROM blogs ORDER BY ID DESC";
+        $query = "SELECT ID, Name, Status, Created_At, Photo, Description FROM blogs WHERE Status = 1 ORDER BY ID DESC";
         $result = mysqli_query($this->conn, $query);
         if ($result) {
             $blogData = [];
@@ -63,7 +63,7 @@ class Process
     public function getGalleryImages()
     {
         $response = [];
-        $query = "SELECT * FROM gallery WHERE Status = 1 ORDER BY ID ASC";
+        $query = "SELECT * FROM gallery WHERE status = 1 ORDER BY ID ASC";
         $result = mysqli_query($this->conn, $query);
         if ($result) {
             $galleryData = [];

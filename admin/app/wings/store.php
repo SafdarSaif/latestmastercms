@@ -8,13 +8,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $slug = baseurl($name);
     $category = mysqli_real_escape_string($conn, $_POST['wing_heading']);
-    $date = mysqli_real_escape_string($conn, $_POST['date']);
+    // $date = mysqli_real_escape_string($conn, $_POST['date']);
+    $date_range = mysqli_real_escape_string($conn, $_POST['date']);
+
     $media_type = mysqli_real_escape_string($conn, $_POST['media_type']);
     $content = mysqli_real_escape_string($conn, $_POST['content']);
     $meta_title = mysqli_real_escape_string($conn, $_POST['meta_title']);
     $meta_key = mysqli_real_escape_string($conn, $_POST['meta_key']);
     $meta_description = mysqli_real_escape_string($conn, $_POST['meta_description']);
     $position = intval($_POST['position']);
+
+
+    // Split the date range into start and end dates
+    $date_parts = explode(" - ", $date_range);
+    $start_date = date("Y-m-d H:i:s", strtotime($date_parts[0]));
+    $end_date = date("Y-m-d H:i:s", strtotime($date_parts[1]));
 
     // File handling
     $filename = '';
@@ -25,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Validate mandatory fields
-    if (empty($name) || empty($category) || empty($date) || empty($media_type) || empty($content) || empty($position)) {
+    if (empty($name) || empty($category)  || empty($media_type) || empty($content) || empty($position)) {
         echo json_encode(['status' => 403, 'message' => 'All required fields must be filled out!']);
         exit();
     }
@@ -39,8 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert into the database
     $query = "INSERT INTO wings 
-              (`Name`, `Slug`, `Wing_Heading_ID`, `Date`, `Media_Type`, `Media_File`, `Content`, `Meta_Title`, `Meta_Key`, `Meta_Description`, `Position`, `Created_At`) 
-              VALUES ('$name', '$slug', '$category', '$date', '$media_type', '$filename', '$content', '$meta_title', '$meta_key', '$meta_description', '$position', NOW())";
+              (`Name`, `Slug`, `Wing_Heading_ID`, `Media_Type`, `Media_File`, `Content`, `Meta_Title`, `Meta_Key`, `Meta_Description`, `Position`, `Start_Date`, `End_Date`, `Created_At`) 
+              VALUES ('$name', '$slug', '$category', '$media_type', '$filename', '$content', '$meta_title', '$meta_key', '$meta_description', '$position', '$start_date', '$end_date', NOW())";
+
 
     if ($conn->query($query)) {
         echo json_encode(['status' => 200, 'message' => $name . ' added successfully!']);

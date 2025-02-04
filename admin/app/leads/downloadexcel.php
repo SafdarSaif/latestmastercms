@@ -65,19 +65,15 @@ foreach ($data as $item) {
     $rowNum++;
 }
 
-// Set filename for the downloaded file
 $filename = 'leads_' . date('Y-m-d_H-i-s') . '.xlsx';
 
-// Set headers to prompt the browser to download the file
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="' . $filename . '"');
 header('Cache-Control: max-age=0');
 
-// Write the spreadsheet to output
 $writer = new Xlsx($spreadsheet);
 $writer->save('php://output');
 
-// Close the database connection
 mysqli_close($conn);
 exit();
 ?>

@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $name = mysqli_real_escape_string($conn, $_POST['name']);
   $slug = baseurl($name);
   $category = mysqli_real_escape_string($conn, $_POST['wing_heading']);
-  $date = mysqli_real_escape_string($conn, $_POST['date']);
+  // $date = mysqli_real_escape_string($conn, $_POST['date']);
+  $date_range = mysqli_real_escape_string($conn, $_POST['date']);
   $media_type = mysqli_real_escape_string($conn, $_POST['media_type']);
   $content = mysqli_real_escape_string($conn, $_POST['content']);
   $meta_title = mysqli_real_escape_string($conn, $_POST['meta_title']);
@@ -16,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $meta_description = mysqli_real_escape_string($conn, $_POST['meta_description']);
   $position = intval($_POST['position']);
   $updated_file = mysqli_real_escape_string($conn, $_POST['updated_file']);
+
+
 
   $filename = $updated_file;
 
@@ -34,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $filename = mysqli_real_escape_string($conn, $_POST['media_link']);
   }
 
-  if (empty($id) || empty($name) || empty($category) || empty($date) || empty($media_type) || empty($content) || empty($position)) {
+  if (empty($id) || empty($name) || empty($category) || empty($media_type) || empty($content) || empty($position)) {
     echo json_encode(['status' => 403, 'message' => 'All required fields must be filled out!']);
     exit();
   }
@@ -45,12 +48,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
   }
 
+   // Split date range into start and end dates
+   $date_parts = explode(" - ", $date_range);
+   if (count($date_parts) === 2) {
+       $start_date = date("Y-m-d H:i:s", strtotime($date_parts[0]));
+       $end_date = date("Y-m-d H:i:s", strtotime($date_parts[1]));
+   } else {
+       echo json_encode(['status' => 400, 'message' => 'Invalid date range!']);
+       exit();
+   }
 
   $updateQuery = "UPDATE wings SET 
                         `Name` = '$name',
                         `Slug` = '$slug',
                         `Wing_Heading_ID` = '$category',
-                        `Date` = '$date',
                         `Media_Type` = '$media_type',
                         `Media_File` = '$filename',
                         `Content` = '$content',
@@ -58,6 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         `Meta_Key` = '$meta_key',
                         `Meta_Description` = '$meta_description',
                         `Position` = '$position',
+                        `Start_Date` = '$start_date',
+                        `End_Date` = '$end_date',
                         `Updated_At` = NOW()
                         WHERE `ID` = $id";
 

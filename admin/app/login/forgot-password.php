@@ -113,12 +113,12 @@ if (isset($_POST['email'])) {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'safdarali.cse@gmail.com';
-            $mail->Password = 'ysgz keis ebza cgda';
+            $mail->Username = 'no-reply@edtechinnovate.com';
+            $mail->Password = 'ypjpmutmkhitbfgn';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
-            $mail->setFrom('noreply@yourdomain.com', 'No Reply');
+            $mail->setFrom('no-reply@edtechinnovate.com', 'Edtech Innovate');
             $mail->addAddress($email);
 
             $mail->isHTML(true);

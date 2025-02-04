@@ -45,17 +45,17 @@ require '../../includes/helper.php'; ?>
     </div>
 
     <!-- Date -->
-    <div class="col-md-6">
+    <!-- <div class="col-md-6">
       <label class="form-label fw-semibold" for="date">Date <span class="text-danger">*</span></label>
       <input type="date" id="date" name="date" class="form-control" required />
       <div class="invalid-feedback">Date is required.</div>
-    </div>
+    </div> -->
 
-    <!-- <div class="col-md-6">
+    <div class="col-md-6">
       <label class="form-label fw-semibold" for="date_range">Date Range <span class="text-danger">*</span></label>
       <input type="text" id="date_time_range" name="date" class="form-control" placeholder="Select date range" required />
       <div class="invalid-feedback">Date range is required.</div>
-    </div> -->
+    </div>
 
 
     <!-- Media Type -->
@@ -126,20 +126,20 @@ require '../../includes/helper.php'; ?>
 
 
 
-<!-- <script>
+<script>
   $(document).ready(function() {
     $('#date_time_range').daterangepicker({
-      timePicker: true, // Enable time picker
-      timePicker24Hour: false, // Use 12-hour format
-      timePickerSeconds: false, // Hide seconds
+      timePicker: true,
+      timePicker24Hour: false,
+      timePickerSeconds: false,
       locale: {
-        format: 'DD-MM-YYYY hh:mm A', // Indian format with 12-hour time and AM/PM
+        format: 'DD-MM-YYYY hh:mm A',
       },
-      startDate: moment().startOf('hour'), // Default start time
-      endDate: moment().startOf('hour').add(1, 'hour'), // Default end time
+      startDate: moment().startOf('hour'),
+      endDate: moment().startOf('hour').add(1, 'hour'),
     });
   });
-</script> -->
+</script>
 
 
 

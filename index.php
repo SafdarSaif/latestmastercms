@@ -170,6 +170,9 @@ if ($result && mysqli_num_rows($result) > 0) {
                       Remember Me
                     </label> -->
                   </div>
+                  <a href="admin/opt_forgot">
+                    <p class="mb-0">OTP?</p>
+                  </a>
                   <a href="admin/login-forgotpassword">
                     <p class="mb-0">Forgot Password?</p>
                   </a>
@@ -187,7 +190,7 @@ if ($result && mysqli_num_rows($result) > 0) {
               </a>
             </p> -->
 
-            <div class="divider my-6">
+            <!-- <div class="divider my-6">
               <div class="divider-text">or</div>
             </div>
 
@@ -207,7 +210,7 @@ if ($result && mysqli_num_rows($result) > 0) {
               <a href="javascript:;" class="btn btn-sm btn-icon rounded-pill btn-text-google-plus">
                 <i class="tf-icons ti ti-brand-google-filled"></i>
               </a>
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- /Register -->

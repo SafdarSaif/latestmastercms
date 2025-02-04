@@ -19,10 +19,15 @@
         <!-- <span class="app-brand-text demo menu-text fw-bold"><?= $name; ?></span> -->
 
 
-        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+        <!-- <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
             <i class="ti menu-toggle-icon d-none d-xl-block align-middle"></i>
             <i class="ti ti-x d-block d-xl-none ti-md align-middle"></i>
-        </a>
+        </a> -->
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+    <i class="ti ti-menu-2 d-none d-xl-block align-middle"></i> 
+    <i class="ti ti-x d-block d-xl-none ti-md align-middle"></i>
+</a>
+
     </div>
 
     <div class="menu-inner-shadow"></div>
@@ -35,7 +40,7 @@
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-smart-home"></i>
                 <div data-i18n="Dashboards">Dashboards</div>
-                <div class="badge bg-danger rounded-pill ms-auto">5</div>
+                <div class="badge bg-danger rounded-pill ms-auto">1</div>
             </a>
             <ul class="menu-sub">
 

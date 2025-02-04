@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['id']) && is_numeric($
   require '../../includes/db-config.php';
   session_start();
 
-  $id = intval($_GET['id']); // Ensures $id is an integer
+  $id = intval($_GET['id']); 
 
   $check = $conn->query("SELECT ID FROM blogs WHERE ID = $id");
   if ($check->num_rows > 0) {

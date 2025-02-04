@@ -5,6 +5,11 @@ if (isset($_GET['id'])) {
   $id = intval($_GET['id']);
   $getData = $conn->query("SELECT * FROM wings WHERE ID = $id");
   $wingsArr = $getData->fetch_assoc();
+
+  // Extract Start_Date and End_Date from database record
+  $start_date = date("d-m-Y h:i A", strtotime($wingsArr['Start_Date']));
+  $end_date = date("d-m-Y h:i A", strtotime($wingsArr['End_Date']));
+  $date_range = $start_date . " - " . $end_date; // Concatenate the two dates
 }
 ?>
 
@@ -38,11 +43,16 @@ if (isset($_GET['id'])) {
       </select>
       <div class="invalid-feedback">Wing heading is required.</div>
     </div>
-
-    <div class="col-md-6">
+    <!-- Date -->
+    <!-- <div class="col-md-6">
       <label class="form-label fw-semibold" for="date">Date <span class="text-danger">*</span></label>
       <input type="date" class="form-control border-primary shadow-sm" name="date" value="<?= $wingsArr['Date'] ?>" required>
       <div class="invalid-feedback">Date is required.</div>
+    </div> -->
+    <div class="col-md-6">
+      <label class="form-label fw-semibold" for="date_range">Date Range <span class="text-danger">*</span></label>
+      <input type="text" id="date_time_range" name="date" class="form-control" placeholder="Select date range" value="<?= isset($date_range) ? $date_range : '' ?>" required />
+      <div class="invalid-feedback">Date range is required.</div>
     </div>
 
     <div class="col-md-6">
@@ -103,6 +113,22 @@ if (isset($_GET['id'])) {
     </div>
   </form>
 </div>
+
+
+<script>
+  $(document).ready(function() {
+    $('#date_time_range').daterangepicker({
+      timePicker: true,
+      timePicker24Hour: false,
+      timePickerSeconds: false,
+      locale: {
+        format: 'DD-MM-YYYY hh:mm A',
+      },
+      startDate: moment("<?= $start_date ?>", "DD-MM-YYYY hh:mm A"),
+      endDate: moment("<?= $end_date ?>", "DD-MM-YYYY hh:mm A"),
+    });
+  });
+</script>
 
 <script>
   $(document).ready(function() {
