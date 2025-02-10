@@ -31,7 +31,7 @@ if ($subdomain) {
   } elseif ($subdomain == 'oldtheme') {
     $username = "root";
     $password = "";
-    $database = "jvns_db";
+    $database = "prakriti_db";
   }
 } else {
   $username = "root";

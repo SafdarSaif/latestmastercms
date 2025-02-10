@@ -223,73 +223,7 @@
 
 include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/footer-top.php');
 ?>
-<!-- <style>
-    .stat-card {
-        transition: transform 0.2s;
-        border: none;
-        border-radius: 12px;
-    }
 
-    .stat-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .avatar {
-        width: 45px;
-        height: 45px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-    }
-
-    .stat-trend {
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
-    }
-
-    #trafficChart {
-        min-height: 300px;
-    }
-
-    .activity-item {
-        display: flex;
-        padding: 1rem 0;
-        border-bottom: 1px solid #eee;
-    }
-
-    .activity-badge {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        margin-right: 1rem;
-        margin-top: 5px;
-    }
-
-    .activity-content {
-        flex: 1;
-    }
-
-    .quick-actions .action-card {
-        display: block;
-        text-align: center;
-        padding: 1.5rem;
-        border-radius: 10px;
-        color: white;
-        text-decoration: none;
-        transition: transform 0.2s;
-    }
-
-    .quick-actions .action-card:hover {
-        transform: translateY(-3px);
-    }
-
-    .quick-actions .action-card i {
-        font-size: 1.5rem;
-        display: block;
-        margin-bottom: 0.5rem;
-    }
-</style> -->
 
 <style>
     .stat-card {
@@ -344,29 +278,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/footer-top.php');
     }
 </style>
 
-<!-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let counters = document.querySelectorAll(".stat-card h5");
-        let speed = 100;
 
-        counters.forEach(counter => {
-            let animate = () => {
-                let value = +counter.getAttribute("data-target");
-                let data = +counter.innerText;
-
-                let increment = value / speed;
-
-                if (data < value) {
-                    counter.innerText = Math.ceil(data + increment);
-                    setTimeout(animate, 20);
-                } else {
-                    counter.innerText = value;
-                }
-            };
-            animate();
-        });
-    });
-</script> -->
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/footer-bottom.php');
 

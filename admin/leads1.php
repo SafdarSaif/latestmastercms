@@ -1,4 +1,17 @@
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/header-top.php');  ?>
+<style>
+    /* .h-10{
+        height: 30px;
+    } */
+    .dt-buttons {
+        display: flex;
+        align-items: center;
+    }
+
+    .gap_dtable {
+        gap: 12px;
+    }
+</style>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/header-bottom.php');  ?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/side-menu.php'); ?>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/menu.php'); ?>
@@ -15,6 +28,7 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
     $types[] = $row['Type'];
 }
 ?>
+
 <script type="module">
     $(function() {
         var dataTableleads = $('#leads-table'),
@@ -45,58 +59,37 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
                         data: 'Message'
                     },
                     {
+                        data: 'Content'
+                    },
+                    {
                         data: ''
                     },
                 ],
                 columnDefs: [{
-                        targets: 0,
-                        render: function(data, type, full, meta) {
-                            return data;
-                        },
+                    targets: -1,
+                    searchable: false,
+                    title: 'Actions',
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        var id = full['ID'];
+                        return (
+                            '<span class="text-nowrap">' +
+                            '<button class="btn btn-sm btn-icon delete-record" onclick="destroy(\'/admin/app/leads/destroy\', ' + id + ')">' +
+                            '<i class="ti ti-trash"></i>' +
+                            '</button>' +
+                            '</span>'
+                        );
                     },
-                    {
-                        targets: 1,
-                        render: function(data, type, full, meta) {
-                            return '<span class="text-nowrap">' + full['Name'] + '</span>';
-                        },
-                    },
-                    {
-                        targets: 2,
-                        render: function(data, type, full, meta) {
-                            return '<span class="text-nowrap">' + full['Phone'] + '</span>';
-                        },
-                    },
-                    {
-                        targets: 3,
-                        render: function(data, type, full, meta) {
-                            return '<span class="text-nowrap">' + full['Email'] + '</span>';
-                        },
-                    },
-                    {
-                        targets: 4,
-                        render: function(data, type, full, meta) {
-                            return '<span class="text-nowrap">' + full['Message'] + '</span>';
-                        },
-                    },
-                    {
-                        targets: -1,
-                        searchable: false,
-                        title: 'Actions',
-                        orderable: false,
-                        render: function(data, type, full, meta) {
-                            var id = full['ID'];
-                            return (
-                                '<span class="text-nowrap">' +
-                                '<button class="btn btn-sm btn-icon delete-record" onclick="destroy(\'/admin/app/leads/destroy\', ' + id + ')">' +
-                                '<i class="ti ti-trash"></i>' +
-                                '</button>' +
-                                '</span>'
-                            );
-                        },
-                    },
-                ],
+                }, ],
                 aaSorting: false,
-                dom: '<"row mx-1"<"col-md-3"l><"col-md-9"f>>t<"row mx-2"<"col-md-6"i><"col-md-6"p>>',
+                dom: '<"row mx-1 justify-content-between "<"col-md-3 "l><"col-md-6 d-flex flex-row justify-content-end gap_dtable"f text-end"B>>t<"row mx-2"<"col-md-6"i><"col-md-6"p>>',
+                buttons: [{
+                    text: 'Export⬇',
+                    className: 'btn btn-primary h-10',
+                    action: function(e, dt, button, config) {
+                        exportData();
+                    }
+                }],
                 language: {
                     sLengthMenu: 'Show _MENU_',
                     search: 'Search',
@@ -109,7 +102,12 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
             });
         }
     });
+
+    function exportData() {
+        window.location.href = "/admin/app/leads/downloadexcel.php?typeFilter=" + $('#typeFilter').val();
+    }
 </script>
+
 
 <h4 class="mb-4">Website Leads</h4>
 
@@ -124,7 +122,7 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
             <?php endforeach; ?>
         </select>
     </div>
-    
+
 </div>
 <!--/ Filter Section -->
 <!-- Admission Table -->
@@ -140,6 +138,7 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Message</th>
+                    <th>Content</th>
                     <th></th>
                 </tr>
             </thead>

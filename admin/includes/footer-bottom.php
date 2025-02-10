@@ -60,6 +60,8 @@
     // }
 
 
+    
+
     function addbysession(url, modal, id) {
         // alert(model);
 
@@ -84,6 +86,9 @@
             }
         })
     }
+
+
+    
 
 
     function editsetting(url, id, second_id, modal) {

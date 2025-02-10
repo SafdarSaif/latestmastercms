@@ -6,10 +6,14 @@ if (isset($_GET['id'])) {
   $getData = $conn->query("SELECT * FROM wings WHERE ID = $id");
   $wingsArr = $getData->fetch_assoc();
 
-  // Extract Start_Date and End_Date from database record
-  $start_date = date("d-m-Y h:i A", strtotime($wingsArr['Start_Date']));
-  $end_date = date("d-m-Y h:i A", strtotime($wingsArr['End_Date']));
-  $date_range = $start_date . " - " . $end_date; // Concatenate the two dates
+  // // Extract Start_Date and End_Date from database record
+  // $start_date = date("d-m-Y h:i A", strtotime($wingsArr['Start_Date']));
+  // $end_date = date("d-m-Y h:i A", strtotime($wingsArr['End_Date']));
+  // $date_range = $start_date . " - " . $end_date; 
+  // Extract Start_Date and End_Date, ensuring they are not NULL
+  $start_date = !empty($wingsArr['Start_Date']) ? date("d-m-Y h:i A", strtotime($wingsArr['Start_Date'])) : null;
+  $end_date = !empty($wingsArr['End_Date']) ? date("d-m-Y h:i A", strtotime($wingsArr['End_Date'])) : null;
+  $date_range = ($start_date && $end_date) ? "$start_date - $end_date" : "";
 }
 ?>
 
@@ -115,7 +119,7 @@ if (isset($_GET['id'])) {
 </div>
 
 
-<script>
+<!-- <script>
   $(document).ready(function() {
     $('#date_time_range').daterangepicker({
       timePicker: true,
@@ -126,6 +130,62 @@ if (isset($_GET['id'])) {
       },
       startDate: moment("<?= $start_date ?>", "DD-MM-YYYY hh:mm A"),
       endDate: moment("<?= $end_date ?>", "DD-MM-YYYY hh:mm A"),
+    });
+  });
+</script> -->
+
+<!-- <script>
+  $(document).ready(function() {
+    var startDate = "<?= $start_date ?>";
+    var endDate = "<?= $end_date ?>";
+
+    if (startDate && endDate) {
+      $('#date_time_range').daterangepicker({
+        timePicker: true,
+        timePicker24Hour: false,
+        timePickerSeconds: false,
+        locale: {
+          format: 'DD-MM-YYYY hh:mm A',
+        },
+        startDate: moment(startDate, "DD-MM-YYYY hh:mm A"),
+        endDate: moment(endDate, "DD-MM-YYYY hh:mm A"),
+      });
+    } else {
+      $('#date_time_range').daterangepicker({
+        autoUpdateInput: false,
+        timePicker: true,
+        timePicker24Hour: false,
+        timePickerSeconds: false,
+        locale: {
+          format: 'DD-MM-YYYY hh:mm A',
+        },
+      }).val("");
+    }
+  });
+</script> -->
+
+<script>
+  $(document).ready(function() {
+    var startDate = "<?= $start_date ?>";
+    var endDate = "<?= $end_date ?>";
+
+    $('#date_time_range').daterangepicker({
+      autoUpdateInput: true,
+      timePicker: true,
+      timePicker24Hour: false,
+      timePickerSeconds: false,
+      locale: {
+        format: 'DD-MM-YYYY hh:mm A',
+        cancelLabel: 'Clear'
+      },
+      startDate: startDate ? moment(startDate, "DD-MM-YYYY hh:mm A") : moment(),
+      endDate: endDate ? moment(endDate, "DD-MM-YYYY hh:mm A") : moment().add(1, 'days')
+    }, function(start, end) {
+      $('#date_time_range').val(start.format('DD-MM-YYYY hh:mm A') + ' - ' + end.format('DD-MM-YYYY hh:mm A'));
+    });
+
+    $('#date_time_range').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
     });
   });
 </script>

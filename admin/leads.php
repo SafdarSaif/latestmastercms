@@ -58,10 +58,27 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
                     {
                         data: 'Message'
                     },
+
                     {
                         data: ''
                     },
                 ],
+                // columnDefs: [{
+                //     targets: -1,
+                //     searchable: false,
+                //     title: 'Actions',
+                //     orderable: false,
+                //     render: function(data, type, full, meta) {
+                //         var id = full['ID'];
+                //         return (
+                //             '<span class="text-nowrap">' +
+                //             '<button class="btn btn-sm btn-icon delete-record" onclick="destroy(\'/admin/app/leads/destroy\', ' + id + ')">' +
+                //             '<i class="ti ti-trash"></i>' +
+                //             '</button>' +
+                //             '</span>'
+                //         );
+                //     },
+                // }, ],
                 columnDefs: [{
                     targets: -1,
                     searchable: false,
@@ -69,15 +86,22 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
                     orderable: false,
                     render: function(data, type, full, meta) {
                         var id = full['ID'];
-                        return (
-                            '<span class="text-nowrap">' +
-                            '<button class="btn btn-sm btn-icon delete-record" onclick="destroy(\'/admin/app/leads/destroy\', ' + id + ')">' +
-                            '<i class="ti ti-trash"></i>' +
-                            '</button>' +
-                            '</span>'
-                        );
-                    },
-                }, ],
+                        // var content = full['Content'] ? full['Content'] : "{}";
+                        var content = full['Content'] ? full['Content'] : null;
+                        let view = '';
+                        if (content) {
+                            view = '<button class="btn btn-sm btn-info" onclick="viewContent(' + id + ')"><i class="ti ti-eye"></i></button>';
+                        }
+                        // console.log("Content:", content);
+                        // let view = '<button class="btn btn-sm btn-info" onclick ="viewContent(' + id + ')" ><i class="ti ti-eye"></i></button>';
+                        let del = '<button class="btn btn-sm btn-icon delete-record" onclick="destroy(\'/admin/app/leads/destroy\', ' + id + ')"><i class="ti ti-trash"></i></button>';
+                        return '<div>' + view + del + '</div>';
+
+                    }
+                }],
+
+
+
                 aaSorting: false,
                 dom: '<"row mx-1 justify-content-between "<"col-md-3 "l><"col-md-6 d-flex flex-row justify-content-end gap_dtable"f text-end"B>>t<"row mx-2"<"col-md-6"i><"col-md-6"p>>',
                 buttons: [{
@@ -105,6 +129,30 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
     }
 </script>
 
+
+
+
+
+<script>
+    function viewContent(id) {
+        $.ajax({
+            url: "/admin/app/leads/content.php",
+            type: "GET",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                // console.log(data);
+                $('#modal-md-content').html(data);
+                $('#modal-md').modal('show');
+                
+            },
+            error: function() {
+                alert("Failed to load content.");
+            }
+        });
+    }
+</script>
 
 <h4 class="mb-4">Website Leads</h4>
 
@@ -135,6 +183,7 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Message</th>
+                    <!-- <th>Content</th> -->
                     <th></th>
                 </tr>
             </thead>
@@ -142,6 +191,7 @@ while ($row = mysqli_fetch_assoc($typeResults)) {
     </div>
 </div>
 <!--/ Admission Table -->
+
 <?php
 
 include($_SERVER['DOCUMENT_ROOT'] . '/admin/includes/footer-top.php');

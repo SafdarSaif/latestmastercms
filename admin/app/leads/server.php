@@ -4,7 +4,7 @@ session_start();
 
 $typeFilter = isset($_POST['typeFilter']) ? $_POST['typeFilter'] : '';
 
-$query = "SELECT ID, Name, Email, Mobile, Message, Type, Created_At FROM leads";
+$query = "SELECT ID, Name, Email, Mobile, Message, Type, Content, Created_At FROM leads";
 if ($typeFilter != '') {
     $query .= " WHERE Type = '" . mysqli_real_escape_string($conn, $typeFilter) . "'";
 }
@@ -23,6 +23,8 @@ while ($row = mysqli_fetch_assoc($results)) {
     } else {
         $messtext = $row['Message'];
     }
+
+    $content = (!empty($row['Content'])) ? json_decode($row['Content'], true) : ''; 
     $data[] = array(
         "No" => $no,
         "ID" => $row['ID'],
@@ -31,6 +33,7 @@ while ($row = mysqli_fetch_assoc($results)) {
         "Email" => $row['Email'],
         "Message" => $messtext,
         "Type" => $row['Type'],
+        "Content" => $content,
         "Created_At" => $row["Created_At"],
     );
 }

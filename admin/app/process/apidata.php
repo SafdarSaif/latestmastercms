@@ -33,4 +33,13 @@ if ($method == 'getAnnouncement') {
 if ($method == 'storeLeads') {
     $Process->storeLeads();
 }
+
+if($method == 'getFaq') {
+    $Process->getFaq();
+}
+
+
+if($method == 'getNearPlaces') {
+    $Process->getNearPlaces();
+}
 ?>
