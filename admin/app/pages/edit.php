@@ -1,5 +1,8 @@
-<?php require '../../includes/db-config.php'; ?>
-<?php require '../../includes/helper.php'; ?>
+<?php 
+session_start();
+
+require '../../includes/db-config.php'; 
+require '../../includes/helper.php'; ?>
 
 <div class="modal-body p-4">
   <div class="text-center mb-4">

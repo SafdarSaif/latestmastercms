@@ -1,53 +1,77 @@
 <?php
-// $hostname = "localhost";
-// $username = "root";
-// $password = "";
-// $database = "knowledge_nest";
-// $conn = mysqli_connect("$hostname", "$username", "$password", "$database");
-// include('config.php');
+// Error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+// session_start();
 
-// Master CMS
 $host = $_SERVER['HTTP_HOST'];
 $domainParts = explode('.', $host);
-
 $subdomain = isset($domainParts[0]) ? $domainParts[0] : '';
 
-// print_r($subdomain);
+$subdomains = [
+  "newtheme" => [
+    "username" => "root",
+    "password" => "",
+    "database" => "master_new_db",
+    "label" => "Edtech CMS"
+  ],
+  "oldtheme" => [
+    "username" => "root",
+    "password" => "",
+    "database" => "prakriti_db",
+    "label" => "Old Theme CMS"
+  ],
+  "jvnscms" => [
+    "username" => "root",
+    "password" => "",
+    "database" => "jvns_db",
+    "label" => "JVN CMS"
+  ],
+  "prakriticms" => [
+    "username" => "root",
+    "password" => "",
+    "database" => "prakriti_db",
+    "label" => "Prakriti CMS"
+  ]
+];
 
-// $subdomain = "newtheme";
+// Default connection details
+$username = "root";
+$password = "";
+$database = "master_db";
+// Check if a subdomain is selected in session
+if (isset($_SESSION['selected_database']) && !empty($_SESSION['selected_database'])) {
 
-// $subdomain = "";
 
-$hostname = "localhost";
-
-
-
-if ($subdomain) {
-  if ($subdomain == 'newtheme') {
-    $username = "root";
-    $password = "";
-    $database = "master_new_db";
-  } elseif ($subdomain == 'oldtheme') {
-    $username = "root";
-    $password = "";
-    $database = "prakriti_db";
+  if (array_key_exists('selected_database', $_SESSION)) {
+    $selectedDatabase = $_SESSION['selected_database'];
+    $username = $subdomains[$selectedDatabase]["username"];
+    $password = $subdomains[$selectedDatabase]["password"];
+    $database = $subdomains[$selectedDatabase]["database"];
+    
+  } else {
+    if ($subdomain && isset($subdomains[$subdomain])) {
+      $username = $subdomains[$subdomain]["username"];
+      $password = $subdomains[$subdomain]["password"];
+      $database = $subdomains[$subdomain]["database"];
+    }
   }
 } else {
-  $username = "root";
-  $password = "";
-  $database = "master_db";
+  // Default connection for the root domain or if no session is selected
+  if ($subdomain && isset($subdomains[$subdomain])) {
+    $username = $subdomains[$subdomain]["username"];
+    $password = $subdomains[$subdomain]["password"];
+    $database = $subdomains[$subdomain]["database"];
+  }
 }
 
+$hostname = "localhost";
 $conn = mysqli_connect($hostname, $username, $password, $database);
 
-
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
 
 include('config.php');
-// Include the config file if it exists
-// $configFile = 'config.php';
-// if (file_exists($configFile)) {
-//     include($configFile);
-// } else {
-//     die("Config file not found!");
-// }

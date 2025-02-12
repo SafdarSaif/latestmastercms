@@ -1,11 +1,9 @@
 
-
-
-
 <?php
+session_start();
 if (isset($_POST['id'])) {
   require '../../includes/db-config.php';
-  session_start();
+
 
   $id = intval($_POST['id']);
   $blog_id = mysqli_real_escape_string($conn, $_POST['blog_id']);

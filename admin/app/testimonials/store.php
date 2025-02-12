@@ -1,9 +1,9 @@
 <?php
+session_start();
 
 if (isset($_POST['name'])) {
     require '../../includes/db-config.php';
     require '../../includes/helper.php';
-    session_start();
 
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $profile = mysqli_real_escape_string($conn, $_POST['profile']);

@@ -1,3 +1,6 @@
+<?php
+?>
+
 <?php require 'includes/db-config.php'; ?>
 
 
@@ -45,7 +48,7 @@
             <ul class="menu-sub">
 
                 <li class="menu-item active">
-                    <a href="./index" class="menu-link">
+                    <a href="./indexnew" class="menu-link">
                         <div data-i18n="Analytics">Analytics</div>
                     </a>
                 </li>

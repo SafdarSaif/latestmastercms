@@ -1,7 +1,8 @@
 <?php
+session_start();
+
 ## Database configuration
 include '../../includes/db-config.php';
-session_start();
 ## Fetch records
 $result_record = "SELECT id, gallery_id, image_url, status, Created_At FROM gallery_image ORDER BY ID DESC";
 $results = mysqli_query($conn, $result_record);

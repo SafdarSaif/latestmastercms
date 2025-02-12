@@ -1,6 +1,7 @@
 <?php
-include '../../includes/db-config.php';
 session_start();
+
+include '../../includes/db-config.php';
 
 $typeFilter = isset($_POST['typeFilter']) ? $_POST['typeFilter'] : '';
 

@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 if (isset($_GET['id'])) {
     require '../../includes/db-config.php';
     $id = intval($_GET['id']);

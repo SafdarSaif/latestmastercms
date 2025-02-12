@@ -18,11 +18,11 @@
 //   }
 // }
 
+session_start();
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['id'])) {
   require '../../includes/db-config.php';
-  session_start();
 
   $id = mysqli_real_escape_string($conn, $_GET['id']);
 

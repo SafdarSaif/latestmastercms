@@ -1,9 +1,10 @@
 <?php
+session_start();
+
 require '../../includes/db-config.php';
 require '../../includes/helper.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    session_start();
 
     // Collect form data
     $video_link = mysqli_real_escape_string($conn, $_POST['video_links']);
@@ -33,4 +34,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode(['status' => 400, 'message' => 'Database insert failed!']);
     }
 }
-?>

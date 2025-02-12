@@ -1,8 +1,8 @@
 <?php
+session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   require '../../includes/db-config.php';
   require '../../includes/helper.php';
-  session_start();
 
   $id = intval($_POST['id']);
   $name = mysqli_real_escape_string($conn, $_POST['name']);

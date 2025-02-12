@@ -1,9 +1,10 @@
 <?php
+session_start();
+
 if (isset($_POST['name']) && isset($_POST['id'])) {
     require '../../includes/db-config.php';
     require '../../includes/helper.php';
 
-    session_start();
 
     $editID = intval($_POST['id']);
     $heading_setting_id = intval($_POST['heading_setting_id']);
@@ -15,10 +16,10 @@ if (isset($_POST['name']) && isset($_POST['id'])) {
     $position = intval($_POST['position']);
     $updated_file = mysqli_real_escape_string($conn, $_POST['updated_file']);
 
-    if(isset($_FILES["photo"]["name"]) && $_FILES["photo"]["name"]!=''){ 
-      $photo = uploadImage($conn,"photo","settingdata");
-    }else{
-      $photo = $updated_file;
+    if (isset($_FILES["photo"]["name"]) && $_FILES["photo"]["name"] != '') {
+        $photo = uploadImage($conn, "photo", "settingdata");
+    } else {
+        $photo = $updated_file;
     }
 
     if (empty($name) || empty($content) || empty($position)) {

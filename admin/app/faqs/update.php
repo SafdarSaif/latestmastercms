@@ -1,9 +1,10 @@
 <?php
+session_start();
+
 require '../../includes/db-config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Initialize session if not already started
-    session_start();
 
     // Get and sanitize input data
     $id = intval($_POST['id']);
@@ -35,4 +36,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode(['status' => 400, 'message' => 'Failed to update FAQ. Please try again later.']);
     }
 }
-?>

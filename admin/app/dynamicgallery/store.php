@@ -1,9 +1,10 @@
 <?php
+session_start();
+
 require '../../includes/db-config.php';
 require '../../includes/helper.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  session_start();
 
   $name = mysqli_real_escape_string($conn, $_POST['image_names']);
 
@@ -32,4 +33,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo json_encode(['status' => 400, 'message' => 'Something went wrong!']);
   }
 }
-?>

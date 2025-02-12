@@ -1,5 +1,10 @@
+<?php
+session_start();
+
+?>
 <?php require '../../includes/db-config.php'; ?>
 <?php require '../../includes/helper.php'; ?>
+
 
 
 <?php

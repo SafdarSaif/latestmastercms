@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require '../../includes/db-config.php';
 require '../../includes/helper.php';
 

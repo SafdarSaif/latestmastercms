@@ -1,9 +1,10 @@
 <?php
+    session_start();
+
 require '../../includes/db-config.php';
 require '../../includes/helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    session_start();
 
     // Sanitization of input field
     $id = mysqli_real_escape_string($conn, $_POST['id']);

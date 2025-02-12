@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     require '../../includes/db-config.php';
     require '../../includes/helper.php';
@@ -11,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $validPositions = ['left', 'right'];
     $position = isset($_POST['position']) ? strtolower(trim($_POST['position'])) : null;
     if (!in_array($position, $validPositions)) {
-        $position = 'left'; 
+        $position = 'left';
     }
 
     // Fetch current record
@@ -40,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         $uploadedVideoPath = uploadVideo($conn, "video_file", "gallery_videos");
         if ($uploadedVideoPath) {
             $newVideo = $conn->real_escape_string($uploadedVideoPath);
-            $newVideoLink = null; 
+            $newVideoLink = null;
         } else {
             echo json_encode([
                 'status' => 500,
@@ -56,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             }
         }
         $newVideoLink = $videoLink;
-        $newVideo = null; 
+        $newVideo = null;
     }
 
     // Construct the SQL query
@@ -83,4 +85,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         'message' => 'Invalid request.'
     ]);
 }
-?>

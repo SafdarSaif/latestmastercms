@@ -1,9 +1,10 @@
 <?php
+session_start();
+
 require '../../includes/db-config.php';
 require '../../includes/helper.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    session_start();
 
     $id = intval($_POST['id']);
     $gallery_id = intval($_POST['gallery_id']);
@@ -16,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/uploads/";
     if (!file_exists($target_dir)) {
-        mkdir($target_dir, 0777, true); 
+        mkdir($target_dir, 0777, true);
     }
 
     // Process new images

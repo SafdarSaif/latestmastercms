@@ -1,7 +1,8 @@
 <?php
+session_start();
+
 ## Database configuration
 include '../../includes/db-config.php';
-session_start();
 ## Fetch records
 $result_record = "SELECT ID, Name,Image, Status, Created_At FROM partners ORDER BY ID DESC";
 $results = mysqli_query($conn, $result_record);

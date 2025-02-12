@@ -1,9 +1,10 @@
 <?php
+session_start();
+
 require '../../includes/db-config.php';
 require '../../includes/helper.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    session_start();
 
     $id = intval($_POST['id']);
     $name = mysqli_real_escape_string($conn, $_POST['image_names']);
@@ -11,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($_FILES["images"]["name"]) {
         $filename = uploadImage($conn, "images", "gallery");
-        
+
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . $existingFileName) && $existingFileName !== "/admin-assets/img/default-program.jpg") {
             unlink($_SERVER['DOCUMENT_ROOT'] . $existingFileName);
         }
@@ -20,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    
+
 
     if (empty($name)) {
         echo json_encode(['status' => 403, 'message' => 'Name is mandatory!']);
@@ -41,4 +42,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode(['status' => 400, 'message' => 'Something went wrong!']);
     }
 }
-?>

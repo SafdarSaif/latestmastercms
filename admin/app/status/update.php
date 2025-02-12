@@ -1,7 +1,8 @@
 <?php
+session_start();
 if (isset($_POST['table']) && isset($_POST['id'])) {
   require '../../includes/db-config.php';
-  session_start();
+  
 
   $table = mysqli_real_escape_string($conn, $_POST['table']);
   $table = str_replace('-', '_', $table);

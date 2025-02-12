@@ -42,7 +42,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 echo json_encode([
                     'status' => 200,
                     'message' => 'Welcome ' . $user_details['Name'] . ' of ' . $themeName,
-                    'url' => '/admin/index'
+                    'url' => '/admin/indexnew'
                 ]);
             } else {
                 echo json_encode(['status' => 200, 'message' => 'Welcome ' . $user_details['Name']]);

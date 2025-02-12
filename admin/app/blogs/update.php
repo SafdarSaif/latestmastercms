@@ -1,9 +1,10 @@
 <?php
+session_start();
 if (isset($_POST['name']) &&  isset($_POST['id'])) {
   require '../../includes/db-config.php';
   require '../../includes/helper.php';
 
-  session_start();
+  
 
   $id = intval($_POST['id']);
   $name = mysqli_real_escape_string($conn, $_POST['name']);

@@ -1,8 +1,9 @@
 <?php
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require '../../includes/db-config.php';
     require '../../includes/helper.php';
-    session_start();
 
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $slug = baseurl($name);
@@ -46,6 +47,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     echo json_encode(['status' => 405, 'message' => 'Invalid request method!']);
-
-    
 }

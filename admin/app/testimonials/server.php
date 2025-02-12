@@ -1,7 +1,8 @@
 <?php
+session_start();
+
 ## Database configuration
 include '../../includes/db-config.php';
-session_start();
 ## Fetch records
 $result_record = "SELECT ID, Name, Profile, Image, Testimonial, Rating,Status,Created_At FROM testimonials ORDER BY ID DESC";
 $results = mysqli_query($conn, $result_record);

@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_GET['id'])) {
   require '../../includes/db-config.php';
   require '../../includes/helper.php';

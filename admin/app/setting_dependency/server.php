@@ -1,7 +1,7 @@
 <?php
+session_start();
 ## Database configuration
 include '../../includes/db-config.php';
-session_start();
 ## Fetch records
 $result_record = "SELECT ID, Parent_ID, Child_ID,  Status, Created_At FROM setting_dependency ORDER BY ID ASC ";
 $results = mysqli_query($conn, $result_record);

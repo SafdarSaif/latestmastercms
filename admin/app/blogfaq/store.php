@@ -1,7 +1,8 @@
 <?php
+session_start();
 if (isset($_POST['question'], $_POST['answer'], $_POST['blog_id'])) {
     require '../../includes/db-config.php';
-    session_start();
+    // session_start();
 
     $blog_id = mysqli_real_escape_string($conn, $_POST['blog_id']);
     $question = mysqli_real_escape_string($conn, $_POST['question']);

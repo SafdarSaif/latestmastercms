@@ -1,7 +1,8 @@
 <?php
+session_start();
+
 ## Database configuration
 include '../../includes/db-config.php';
-session_start();
 
 $ID = isset($_GET['id']) ? $conn->real_escape_string($_GET['id']) : 0;
 

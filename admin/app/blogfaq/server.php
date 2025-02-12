@@ -1,6 +1,7 @@
 <?php
-include('../../includes/db-config.php'); 
 session_start();
+## Database configuration
+include('../../includes/db-config.php'); 
 
 ## Fetch records
 $result_record = "SELECT id, blog_id, questions, answers, status, Created_At FROM blogsfaq ORDER BY ID DESC";
