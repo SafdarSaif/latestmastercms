@@ -102,7 +102,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
-    
+
     <!-- Daterangepicker CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
@@ -117,3 +117,80 @@ if ($result && mysqli_num_rows($result) > 0) {
 
     <!-- jQuery -->
     <!-- {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}} -->
+
+
+
+
+    <!-- subdomain Selection Modal -->
+    <div class="modal fade" id="subdomainModal" tabindex="-1" aria-labelledby="subdomainModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="subdomainModalLabel">Select Your CMS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="subdomainSelect" class="form-label">Choose Your CMS</label>
+                            <select class="form-select" id="subdomainSelect">
+                                <option value="">Select CMS</option>
+                                <?php foreach ($subdomains as $key => $details): ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $details['label']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveSubdomain">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- subdomain Selection Modal End -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let savedSubdomain = localStorage.getItem("selectedSubdomain");
+
+            if (savedSubdomain) {
+                let dropdown = document.getElementById("subdomainSelect");
+                dropdown.value = savedSubdomain;
+            }
+        });
+
+        document.getElementById("saveSubdomain").addEventListener("click", function() {
+            let selectedSubdomain = document.getElementById("subdomainSelect").value;
+
+            if (selectedSubdomain) {
+                localStorage.setItem("selectedSubdomain", selectedSubdomain);
+                $.ajax({
+                    url: "app/login/selectsubdomain",
+                    method: "POST",
+                    data: {
+                        subdomain: selectedSubdomain
+                    },
+                    success: function(response) {
+                        if (response === "Database selected successfully.") {
+                            toastr.success("CMS selection saved successfully!");
+                            $("#subdomainModal").modal("hide");
+
+                            // Optionally redirect the user
+                            window.location.href = ``;
+                        } else {
+                            toastr.error("Failed to save the CMS selection.");
+                        }
+                    },
+                    error: function() {
+                        toastr.error("An error occurred. Please try again.");
+                    }
+                });
+            } else {
+                toastr.warning("Please select a CMS.");
+            }
+        });
+    </script>

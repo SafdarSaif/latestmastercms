@@ -19,6 +19,7 @@
 
 
 
+
         <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
             <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="ti ti-menu-2 ti-md"></i>
@@ -110,8 +111,22 @@
                 </li>
                 <!-- / Style Switcher-->
 
+                <!-- CMS Change button start -->
+                <?php if ($subdomain == 'oldtheme') : ?>
+                    <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown">
+                        <a class="nav-link btn btn-text-secondary rounded-pill dropdown-toggle hide-arrow"
+                            href="javascript:void(0);"
+                            data-bs-toggle="modal"
+                            data-bs-target="#subdomainModal">
+                            <i class='ti ti-layout-grid-add ti-md'></i> Change CMS
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <!--CMS Change button end-->
+
                 <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown">
+                <!-- <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown">
                     <a class="nav-link btn btn-text-secondary btn-icon rounded-pill btn-icon dropdown-toggle hide-arrow"
                         href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside"
                         aria-expanded="false">
@@ -194,7 +209,7 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> -->
                 <!-- Quick links -->
 
                 <!-- Notification -->
@@ -428,10 +443,10 @@
                             </div>
                         </li>
                     </ul>
-                </li> 
+                </li>
 
                 <!-- Notification -->
-                
+
                 <!--/ Notification -->
 
                 <!-- User -->
@@ -497,16 +512,16 @@
                         </li>
                         <li>
 
-                             <div class="d-grid px-2 pt-2 pb-1">
+                            <div class="d-grid px-2 pt-2 pb-1">
                                 <a class="btn btn-sm btn-danger d-flex" href="/admin/logout">
                                     <small class="align-middle">Logout</small>
                                     <i class="ti ti-logout ms-2 ti-14px"></i>
                                 </a>
-                            </div> 
+                            </div>
 
-                            
 
-                            
+
+
 
 
                         </li>
@@ -535,4 +550,3 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-

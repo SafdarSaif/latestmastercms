@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="stat-trend text-white">
-                         <i class="ti ti-arrow-up"></i>
+                        <i class="ti ti-arrow-up"></i>
                     </div>
                 </div>
             </div>
@@ -314,34 +314,8 @@
 
 
 
-<!-- subdomain Selection Modal -->
-<div class="modal fade" id="subdomainModal" tabindex="-1" aria-labelledby="subdomainModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="subdomainModalLabel">Select Your CMS</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="subdomainSelect" class="form-label">Choose Your CMS</label>
-                        <select class="form-select" id="subdomainSelect">
-                            <option selected>Select CMS</option>
-                            <?php foreach ($subdomains as $key => $details): ?>
-                                <option value="<?php echo $key; ?>"><?php echo $details['label']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveSubdomain">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 
 <style>
     .bg-gradient-primary {
@@ -440,38 +414,8 @@
 
 
 
-<!-- <script>
-    // Save Subdomain Selection with AJAX and Toastr
-    document.getElementById('saveSubdomain').addEventListener('click', function() {
-        const selectedSubdomain = document.getElementById('subdomainSelect').value;
 
-        if (selectedSubdomain) {
-            $.ajax({
-                url: 'app/login/selectsubdomain',
-                method: 'POST',
-                data: {
-                    subdomain: selectedSubdomain
-                },
-                success: function(response) {
-                    // Assuming the server sends back a success message
-                    if (response.status === 'success') {
-                        toastr.success('CMS selection saved successfully!');
-                        // Optionally, you can redirect the user or perform other actions
-                        // window.location.href = `/${selectedSubdomain}/dashboard`;
-                    } else {
-                        toastr.error('Failed to save the CMS selection.');
-                    }
-                },
-                error: function() {
-                    toastr.error('An error occurred. Please try again.');
-                }
-            });
-        } else {
-            toastr.warning('Please select a CMS.');
-        }
-    });
-</script> -->
-<script>
+<!-- <script>
     document.getElementById('saveSubdomain').addEventListener('click', function() {
         const selectedSubdomain = document.getElementById('subdomainSelect').value;
 
@@ -488,8 +432,12 @@
 
                         $('#subdomainModal').modal('hide');
 
-                        // Optionally, you can redirect the user or perform other actions
-                        // window.location.href = `/${selectedSubdomain}/dashboard`;
+                        // Store the selected subdomain in localStorage
+                        localStorage.setItem('selectedSubdomain', selectedSubdomain);
+
+                        // Reload the page or redirect
+                        window.location.href = ``;
+
                     } else {
                         toastr.error('Failed to save the CMS selection.');
                     }
@@ -502,20 +450,21 @@
             toastr.warning('Please select a CMS.');
         }
     });
-</script>
+</script> -->
+
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
 
         // Show the subdomain selection modal
-        var subdomainModal = new bootstrap.Modal(document.getElementById('subdomainModal'));
-        <?php
-            if($subdomain=='oldtheme')
-            {
-                ?>
-                subdomainModal.show(); 
-                <?php
-            }
-        ?>
+        // var subdomainModal = new bootstrap.Modal(document.getElementById('subdomainModal'));
+        // <?php
+        // if ($subdomain == 'oldtheme') {
+        // ?>
+        //     subdomainModal.show();
+        // <?php
+        // }
+        // ?>
         const trafficChart = new ApexCharts(document.querySelector("#advancedTrafficChart"), {
             chart: {
                 type: 'area',
@@ -592,7 +541,11 @@
         const date = new Date(dateString);
 
         // Format the date as dd-MMM-yyyy (e.g., 11-Feb-2025)
-        const options = { day: '2-digit', month: 'short', year: 'numeric' };
+        const options = {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+        };
         return date.toLocaleDateString('en-GB', options);
     }
 
