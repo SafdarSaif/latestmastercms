@@ -20,7 +20,7 @@ $subdomains = [
   "oldtheme" => [
     "username" => "root",
     "password" => "",
-    "database" => "prakriti_db",
+    "database" => "arni",
     "label" => "Old Theme CMS"
   ],
   "jvnscms" => [

@@ -12,34 +12,37 @@ include 'process.php';
 
 $Process = new Process($conn);
 $method = $_GET['method'];
+$Process->$method();
 
-if ($method == 'getTestimonials') {
-    $Process->getTestimonials();
-}
+// if ($method == 'getTestimonials') {
+//     $Process->getTestimonials();
+// }
 
-if ($method == 'getBlogs') {
-    $Process->getBlogs();
-}
+// if ($method == 'getBlogs') {
+//     $Process->getBlogs();
+// }
 
-if ($method == 'getGalleryImages') {
-    $Process->getGalleryImages();
-}
-if ($method == 'getevents') {
-    $Process->getevents();
-}
-if ($method == 'getAnnouncement') {
-    $Process->getAnnouncement();
-}
-if ($method == 'storeLeads') {
-    $Process->storeLeads();
-}
+// if ($method == 'getGalleryImages') {
+//     $Process->getGalleryImages();
+// }
+// if ($method == 'getevents') {
+//     $Process->getevents();
+// }
+// if ($method == 'getAnnouncement') {
+//     $Process->getAnnouncement();
+// }
+// if ($method == 'storeLeads') {
+//     $Process->storeLeads();
+// }
 
-if($method == 'getFaq') {
-    $Process->getFaq();
-}
+// if($method == 'getFaq') {
+//     $Process->getFaq();
+// }
 
 
 if($method == 'getNearPlaces') {
     $Process->getNearPlaces();
 }
 ?>
+
+

@@ -25,6 +25,8 @@ class Process
                     'Image' => $row['Image'],
                     'Profile' => $row['Profile']
                 ];
+
+                // print_r($testimonialData);die;
             }
             $response = ['status' => 'success', 'data' => $testimonialData];
         } else {
@@ -283,7 +285,7 @@ class Process
         $check_out_date = mysqli_real_escape_string($this->conn, $_POST['check_out_date'] ?? '');
 
         // Validation for required fields
-        if (empty($name) || empty($email) || empty($mobile)) {
+        if (empty($name) || empty($email)) {
             $response = ['status' => 'error', 'message' => 'Name, Email, and Mobile are required.'];
         } else {
 
@@ -354,5 +356,154 @@ class Process
             $response = ['status' => 'error', 'message' => mysqli_error($this->conn)];
         }
         echo json_encode($response);
+    }
+
+
+
+
+    // ArniUniversity Website API 
+
+    public function getCategory()
+    {
+        header('Content-Type: application/json');
+
+        $response = [];
+        $query = "SELECT ID, Name,Photo,Slug FROM setting_data WHERE Heading_Setting_ID = 8 AND Status = 1 ORDER BY Position ASC";
+        $result = mysqli_query($this->conn, $query);
+
+        if ($result) {
+            $courseData = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $courseData[] = (object)[
+                    'ID' => $row['ID'],
+                    'Name' => $row['Name'],
+                    'Slug' => $row['Slug'],
+                    'Photo' => $row['Photo'],
+                ];
+            }
+
+            $response = (object)[
+                'status' => 'success',
+                'data' => $courseData
+            ];
+        } else {
+            $response = (object)[
+                'status' => 'error',
+                'message' => mysqli_error($this->conn)
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+    }
+
+    public function getCoursesByCategory()
+    {
+        header('Content-Type: application/json');
+
+        $dependencySettingID = isset($_GET['Dependency_Setting_ID']) ? $_GET['Dependency_Setting_ID'] : null;
+
+        if (!$dependencySettingID) {
+            $response = (object)[
+                'status' => 'error',
+                'message' => 'Dependency_Setting_ID is required.'
+            ];
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            return;
+        }
+
+        $dependencySettingID = mysqli_real_escape_string($this->conn, $dependencySettingID);
+
+        $response = [];
+        $query = "SELECT ID, Name, Slug, Photo, Content FROM setting_data WHERE Dependency_Setting_ID = $dependencySettingID AND Status = 1 ORDER BY Position ASC";
+
+        $result = mysqli_query($this->conn, $query);
+
+        if ($result) {
+            $courseList = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $courseList[] = (object)[
+                    'ID' => $row['ID'],
+                    'Name' => $row['Name'],
+                    'Slug' => $row['Slug'],
+                    'Photo' => $row['Photo'],
+                    'Content' => $row['Content']
+                ];
+            }
+
+            $response = (object)[
+                'status' => 'success',
+                'data' => $courseList
+            ];
+        } else {
+            $response = (object)[
+                'status' => 'error',
+                'message' => mysqli_error($this->conn)
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
+    }
+
+    // Function to get courses by category slug
+
+    public function getCoursesByCategorySlug()
+    {
+        header('Content-Type: application/json');
+
+        $slug = isset($_GET['slug']) ? $_GET['slug'] : null;
+
+        if (!$slug) {
+            $response = (object)[
+                'status' => 'error',
+                'message' => 'Slug is required.'
+            ];
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            return;
+        }
+
+        $slug = mysqli_real_escape_string($this->conn, $slug);
+
+        // Step 1: Get category ID from slug
+        $categoryQuery = "SELECT ID FROM setting_data WHERE Slug = '$slug' AND Heading_Setting_ID = 8 AND Status = 1 LIMIT 1";
+        $categoryResult = mysqli_query($this->conn, $categoryQuery);
+
+        if ($categoryResult && mysqli_num_rows($categoryResult) > 0) {
+            $categoryRow = mysqli_fetch_assoc($categoryResult);
+            $dependencySettingID = $categoryRow['ID'];
+
+            // Step 2: Get courses by category ID
+            $query = "SELECT ID, Name, Slug, Photo, Content FROM setting_data WHERE Dependency_Setting_ID = $dependencySettingID AND Status = 1 ORDER BY Position ASC";
+            $result = mysqli_query($this->conn, $query);
+
+            if ($result) {
+                $courseList = [];
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $courseList[] = (object)[
+                        'ID' => $row['ID'],
+                        'Name' => $row['Name'],
+                        'Slug' => $row['Slug'],
+                        'Photo' => $row['Photo'],
+                        'Content' => $row['Content']
+                    ];
+                }
+
+                $response = (object)[
+                    'status' => 'success',
+                    'data' => $courseList
+                ];
+            } else {
+                $response = (object)[
+                    'status' => 'error',
+                    'message' => mysqli_error($this->conn)
+                ];
+            }
+        } else {
+            $response = (object)[
+                'status' => 'error',
+                'message' => 'Invalid or non-existing category slug.'
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
     }
 }
